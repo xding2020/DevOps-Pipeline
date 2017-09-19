@@ -1,4 +1,4 @@
-# CSC519 Project
+## CSC519 Project - Configuration Management and Build
 
 ### Team Memeber:
 
@@ -6,8 +6,3 @@
   * Kai Lu(klu2)   
   * Xiangqing Ding(xding3)  
   * Fuxing Luan(fluan)  
-
-
-### Milstones
-
-[Configuration Management and Build](CM)
