@@ -1,0 +1,11 @@
+---
+
+  - name: Ensure python is installed in remote machine
+    raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
+
+  - name: gather facts
+    setup:
+
+  - name: Install Jenkins
+    include: jenkins.yml
+    

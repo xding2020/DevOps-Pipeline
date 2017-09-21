@@ -1,0 +1,6 @@
+---
+- hosts: all
+  gather_facts: no
+  
+  roles:
+    - { name: devops, become: yes, become_method: sudo }
