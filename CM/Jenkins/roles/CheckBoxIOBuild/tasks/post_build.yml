@@ -1,0 +1,29 @@
+---
+
+  - name: Setup checkbox build job
+    jenkins_job:
+      name: checkbox-post-build
+      state: present
+      config: "{{ lookup('template', 'templates/iTrust_Post.config.xml.j2') }}"
+
+  - name: Add ansible repo and update packages
+    apt_repository:
+      repo: 'ppa:ansible/ansible'
+      update_cache: yes
+
+  - name: Install ansible
+    apt: 
+      name: ansible
+      state: present
+
+  - name: Copy private key
+    copy: 
+      src: "{{ inventory_dir }}/keys/aws.pem"
+      dest: /var/lib/jenkins/workspace/iTrust-Post-Build/CM/iTrustPostBuild/keys/
+      mode: 0400
+
+  - name: Create deploy inventory
+    template: 
+      src: inventory.j2
+      dest: /var/lib/jenkins/workspace/iTrust-Post-Build/CM/iTrustPostBuild/inventory
+      force: yes
