@@ -81,3 +81,5 @@ inventory
 
 #keys
 ./keys
+keys/
+*/keys/
