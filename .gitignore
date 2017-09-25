@@ -83,3 +83,8 @@ inventory
 ./keys
 keys/
 */keys/
+
+#.retry
+*.retry
+*/*.retry
+

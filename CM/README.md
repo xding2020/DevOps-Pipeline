@@ -20,14 +20,26 @@ In this case, we don't install other server for Jenkins. Jenkins can run stand-a
 
 ### Steps Overview ###
 
-0. Install java 8 
-1. Install Jenkins
-2. Disable Jenkins security
-3. Install Jenkins plugins
+#### Jenkins 
+1. Install Java 8 
+2. Install Jenkins
+3. Disable Jenkins security
+4. Install Jenkins plugins
+5. Configure Jenkins Jobs
+
+#### CheckBoxIOPostBuild
+
+#### iTrustPostBuild
+1. Install Java 8
+2. Install Tomcat 9
+3. Install MySQL 5.6
+4. Deploy iTrust on Tomcat
 
 ### Run ###
 
-`ansible-playbook playbook.yml -i inventory`
+1. Go to [Jenkins](Jenkins) directory
+2. 
+2. run `ansible-playbook playbook.yml -i inventory`
 
 
 ## Build ##

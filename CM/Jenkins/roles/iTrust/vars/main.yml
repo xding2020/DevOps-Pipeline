@@ -3,5 +3,5 @@ cred_user: 'dding3'
 cred_passwd_en: '{AQAAABAAAAAQ4QwCvj90fh6B10cGiSPlqLWPBtZYJpwHMG74o+mbRA8=}'
 
 ssh_user: ubuntu
-server: 54.208.2.246
 private_key_path: ./keys/aws.pem
+server: 54.208.2.246

@@ -23,3 +23,4 @@
       config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}"
 
   - include_tasks: post_build.yml
+  
