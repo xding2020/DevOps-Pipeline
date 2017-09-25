@@ -75,3 +75,9 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#inventory file
+inventory
+
+#keys
+./keys

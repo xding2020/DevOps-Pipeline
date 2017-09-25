@@ -91,7 +91,7 @@
         # group: Jenkins
         # jenkins_home: /var/lib/jenkins
         # url: "http://localhost:8080"
-    with_dependencies: yes
+    # with_dependencies: yes
     with_items:
         - github
     tags: jenkins-plugin
