@@ -3,13 +3,13 @@
   - name: Ensure python is installed in remote machine
     raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
 
-  # - name: Install MongoDB Repository keys
-  #   apt_key: state=present keyserver=keyserver.ubuntu.com id=7F0CEB10
+  - name: Install MongoDB Repository keys
+    apt_key: state=present keyserver=keyserver.ubuntu.com id=7F0CEB10
 
-  # - name: Install MongoDB repository
-  #   apt_repository:
-  #       repo: 'deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse' 
-  #       state: present
+  - name: Install MongoDB repository
+    apt_repository:
+        repo: 'deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse' 
+        state: present
 
   - name: Install necessary dependencies
     apt: 
