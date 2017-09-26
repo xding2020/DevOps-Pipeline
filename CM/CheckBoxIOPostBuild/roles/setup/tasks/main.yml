@@ -40,12 +40,12 @@
   - name: Copy static resources to target
     shell: cp -r /tmp/checkbox.io-master/public_html/* /usr/share/nginx/html
 
-  - name: Create mongoDB user 
-    mongodb_user:
-      database: burgers
-      name: bob
-      password: 12345
-      state: present
+  # - name: Create mongoDB user 
+  #   mongodb_user:
+  #     database: burgers
+  #     name: admin
+  #     password: 12345
+  #     state: present
 
   - name: Create Environmental Variables
     lineinfile:
@@ -54,7 +54,7 @@
     with_items:
       - MONGO_IP=127.0.0.1
       - MONGO_PORT=27017
-      - MONGO_USER=bob
+      - MONGO_USER=admin
       - MONGO_PASSWORD=12345
       - MAIL_USER=bob
       - MAIL_PASSWORD=666
