@@ -30,7 +30,8 @@
     <hudson.tasks.Shell>
       <command>mkdir -p $WORKSPACE/CM/CheckBoxIOPostBuild/keys
 cp $WORKSPACE/../aws.pem $WORKSPACE/CM/CheckBoxIOPostBuild/keys/aws.pem
-mv $WORKSPACE/../inventory_checkbox $WORKSPACE/CM/CheckBoxIOPostBuild/inventory
+chmod 400 $WORKSPACE/CM/CheckBoxIOPostBuild/keys/aws.pem
+cp $WORKSPACE/../inventory_checkbox $WORKSPACE/CM/CheckBoxIOPostBuild/inventory
 cd $WORKSPACE/CM/CheckBoxIOPostBuild
 ansible-playbook playbook.yml -i inventory</command>
     </hudson.tasks.Shell>

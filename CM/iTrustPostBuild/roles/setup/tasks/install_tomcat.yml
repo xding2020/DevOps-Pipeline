@@ -13,14 +13,14 @@
 
   - name: Download Tomcat 9
     get_url: 
-      url: http://mirror.metrocast.net/apache/tomcat/tomcat-9/v9.0.0.M26/bin/apache-tomcat-9.0.0.M26.tar.gz
+      url: http://mirrors.advancedhosters.com/apache/tomcat/tomcat-9/v9.0.0.M26/bin/apache-tomcat-9.0.0.M26.tar.gz
       checksum: md5:18519f06baf82cce78bc2afc54dd585d
       dest: "{{ deploy_path }}"
       mode: 0755
 
   - name: Extract Tomcat
     unarchive: 
-      src: "http://mirror.metrocast.net/apache/tomcat/tomcat-9/v9.0.0.M26/bin/apache-tomcat-9.0.0.M26.tar.gz"
+      src: http://mirrors.advancedhosters.com/apache/tomcat/tomcat-9/v9.0.0.M26/bin/apache-tomcat-9.0.0.M26.tar.gz
       dest: "{{ deploy_path }}"
       remote_src: yes
       mode: 0755
