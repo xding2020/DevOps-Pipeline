@@ -32,7 +32,7 @@ In this case, we don't install other server for Jenkins. Because Jenkins can run
 ## Build Jobs ##
 
 ### Summary ###
-In this step, the main challenge is building Jenkins jobs automatically. Optional method include using Jenkins DSL or Jenkins CLI. However, We found the easiest way is using *jenkins_jobs* (Ansible Module)[[3]](http://docs.ansible.com/ansible/latest/jenkins_job_module.html). We created corresponding template for configuration file of each application then used the module to build Jenkins jobs.
+In this step, the main challenge is building Jenkins jobs automatically. Optional methods include using Jenkins DSL plugin or Jenkins CLI. However, We found the easiest way is using *jenkins_jobs* (Ansible Module)[[3]](http://docs.ansible.com/ansible/latest/jenkins_job_module.html). We created corresponding template for configuration file of each application then used the module to build Jenkins jobs.
 
 ## iTrust Post-build Configuration ##
 
