@@ -3,6 +3,6 @@
   gather_facts: no
   
   roles:
-    - { name: Jenkins, become: yes, become_method: sudo }
+    # - { name: Jenkins, become: yes, become_method: sudo }
     - { name: iTrust, become: yes, become_method: sudo }
     # - { name: CheckBoxIOBuild, become: yes, become_method: sudo }
