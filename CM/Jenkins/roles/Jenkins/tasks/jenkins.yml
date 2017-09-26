@@ -91,19 +91,22 @@
         # group: Jenkins
         # jenkins_home: /var/lib/jenkins
         # url: "http://localhost:8080"
-    with_dependencies: yes
+    # with_dependencies: yes
     with_items:
         - github
     tags: jenkins-plugin
-        
-        
-        
-        
-  
-    
-    
-    
-    
-    
-        
-  
+
+  # Restart Jenkins again otherwise plugin won't take effect
+  - name: Restart Jenkins
+    service:
+        name: jenkins.service
+        state: restarted
+    tags: jenkins-config
+
+  - name: Wait for Jenkins connection
+    wait_for:
+        host="127.0.0.1"
+        port=8080 
+        delay=10
+        timeout=300
+

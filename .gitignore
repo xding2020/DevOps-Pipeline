@@ -75,3 +75,16 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#inventory file
+inventory
+
+#keys
+./keys
+keys/
+*/keys/
+
+#.retry
+*.retry
+*/*.retry
+

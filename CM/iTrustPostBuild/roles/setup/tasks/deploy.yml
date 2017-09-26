@@ -1,0 +1,36 @@
+---
+
+  - name: Clone git repo
+    git:
+      repo: "https://{{ githubuser | urlencode }}:{{ githubpassword }}@github.ncsu.edu/engr-csc326-staff/iTrust-v23.git"
+      dest: "{{ deploy_path }}/iTrust"
+
+  - name: Build iTrust
+    raw: cd "{{ deploy_path }}/iTrust/iTrust" && mvn -DskipTests=true package
+    
+  - name: Change mode of war package
+    raw: chmod 755 "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
+
+  - name: Creates directory
+    file: 
+      path: "{{ tomcat_path }}/webapps/iTrust"
+      state: directory
+      owner: tomcat
+      group: tomcat
+      mode: 0755
+  
+  # - name: Create deploy dir
+    # raw: mkdir -p "{{ tomcat_path }}/webapps/iTrust"
+
+  - name: Unzip
+    raw: cd "{{ tomcat_path }}/webapps/iTrust" && unzip -q "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
+
+  # - name: Change ownership of war package
+    # raw: chown tomcat:tomcat "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
+  - name: Change ownership of iTrust
+    file: 
+      path: "{{ tomcat_path }}/webapps/iTrust"
+      owner: tomcat
+      group: tomcat
+      state: directory
+      recurse: yes
