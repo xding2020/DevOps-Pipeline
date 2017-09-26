@@ -1,6 +1,5 @@
 # Milestone 1 - Configuration Management and Build #
 
-### Team Member:
 
 | Member                 | Contribution |
 | :---                   | :---         |
