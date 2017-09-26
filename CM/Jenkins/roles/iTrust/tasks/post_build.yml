@@ -29,7 +29,7 @@
       dest: /var/lib/jenkins/workspace/
       group: jenkins
       owner: jenkins
-      mode: 0400
+      mode: 0777
 
   - name: Create deploy inventory
     template: 
