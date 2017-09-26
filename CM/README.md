@@ -55,7 +55,7 @@ In this case, we don't install other server for Jenkins. Because Jenkins can run
 
 ## Demo ##
 
-[Link to video](https://www.youtube.com/watch?v=L0nENSojiLw)
+[Link to video](https://youtu.be/uW1elTHM2Bg)
 
 ## Reference ##
 [[1]https://jenkins.io/doc/book/getting-started/installing/](https://jenkins.io/doc/book/getting-started/installing/ "https://jenkins.io/doc/book/getting-started/installing/")
