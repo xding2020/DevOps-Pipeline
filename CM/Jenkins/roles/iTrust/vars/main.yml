@@ -1,7 +1,6 @@
-cred_id: 'e492528e-f30f-4d40-a448-7c98c6856eea'
-cred_user: 'dding3'
-cred_passwd_en: '{AQAAABAAAAAQ4QwCvj90fh6B10cGiSPlqLWPBtZYJpwHMG74o+mbRA8=}'
-
+cred_id: e492528e-f30f-4d40-a448-7c98c6856eea
+cred_user: dding3
+cred_passwd: 1990O22&ddD
 ssh_user: ubuntu
 private_key_path: ./keys/aws.pem
-server: 54.208.2.246
+server: 54.152.170.47
