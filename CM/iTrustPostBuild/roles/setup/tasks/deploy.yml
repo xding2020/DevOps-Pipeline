@@ -22,7 +22,7 @@
   # - name: Create deploy dir
     # raw: mkdir -p "{{ tomcat_path }}/webapps/iTrust"
 
-  - name: Unzip
+  - name: Unzip war package
     raw: cd "{{ tomcat_path }}/webapps/iTrust" && unzip -q "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
 
   # - name: Change ownership of war package

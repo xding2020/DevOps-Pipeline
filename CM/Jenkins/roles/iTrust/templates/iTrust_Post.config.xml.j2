@@ -29,8 +29,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>mkdir -p $WORKSPACE/CM/iTrustPostBuild/keys
-mv $WORKSPACE/../aws.pem $WORKSPACE/CM/iTrustPostBuild/keys/aws.pem
-mv $WORKSPACE/../inventory $WORKSPACE/CM/iTrustPostBuild/inventory
+cp $WORKSPACE/../aws.pem $WORKSPACE/CM/iTrustPostBuild/keys/aws.pem
+mv $WORKSPACE/../inventory_itrust $WORKSPACE/CM/iTrustPostBuild/inventory
 cd $WORKSPACE/CM/iTrustPostBuild
 ansible-playbook playbook.yml -i inventory</command>
     </hudson.tasks.Shell>

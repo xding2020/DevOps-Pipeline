@@ -34,7 +34,7 @@
   - name: Create deploy inventory
     template: 
       src: inventory.j2
-      dest: /var/lib/jenkins/workspace/inventory
+      dest: /var/lib/jenkins/workspace/inventory_itrust
       group: jenkins
       owner: jenkins
       force: yes
