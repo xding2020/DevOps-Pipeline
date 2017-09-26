@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
-  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
@@ -8,7 +7,8 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/chrisparnin/checkbox.io.git</url>
+        <url>https://github.ncsu.edu/dding3/DevOps.git</url>
+        <credentialsId>{{ cred_id }}</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -28,9 +28,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd ./server-side/site
-npm install
-npm build</command>
+      <command>mkdir -p $WORKSPACE/CM/checkbox/keys
+mv $WORKSPACE/../aws.pem $WORKSPACE/CM/checkbox/keys/aws.pem
+mv $WORKSPACE/../inventory_checkbox $WORKSPACE/CM/checkbox/inventory_checkbox
+cd $WORKSPACE/CM/checkbox
+ansible-playbook playbook.yml -i inventory_checkbox</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

@@ -7,5 +7,5 @@
     setup:
 
   - name: Install Jenkins
-    include_tasks: jenkins.yml
+    include: jenkins.yml
     

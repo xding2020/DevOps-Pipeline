@@ -1,10 +1,10 @@
 ---
 
-  - name: Setup checkbox build job
+  - name: Setup checkbox-post-build build job
     jenkins_job:
       name: checkbox-post-build
       state: present
-      config: "{{ lookup('template', 'templates/iTrust_Post.config.xml.j2') }}"
+      config: "{{ lookup('template', 'templates/checkbox_post.config.xml.j2') }}"
 
   - name: Add ansible repo and update packages
     apt_repository:
@@ -16,14 +16,25 @@
       name: ansible
       state: present
 
+  - name: Disable host key checking
+    lineinfile:
+      path: /etc/ansible/ansible.cfg
+      insertafter: '.*host_key_checking.*'
+      line: 'host_key_checking = False'
+      state: present
+
   - name: Copy private key
     copy: 
       src: "{{ inventory_dir }}/keys/aws.pem"
-      dest: /var/lib/jenkins/workspace/iTrust-Post-Build/CM/iTrustPostBuild/keys/
+      dest: /var/lib/jenkins/workspace/
+      group: jenkins
+      owner: jenkins
       mode: 0400
 
   - name: Create deploy inventory
     template: 
       src: inventory.j2
-      dest: /var/lib/jenkins/workspace/iTrust-Post-Build/CM/iTrustPostBuild/inventory
+      dest: /var/lib/jenkins/workspace/inventory_checkbox
+      group: jenkins
+      owner: jenkins
       force: yes

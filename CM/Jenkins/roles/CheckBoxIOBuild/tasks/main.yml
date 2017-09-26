@@ -5,12 +5,12 @@
       name: "{{ item }}"
       state: present
     with_items:
-      - nodejs
+      - npm
 
   - name: Setup checkboxio build job
     jenkins_job:
       name: checkbox
       state: present
-      config: "{{ lookup('template', 'templates/checkboxBuild.xml') }}"
+      config: "{{ lookup('template', 'templates/checkboxBuild.xml.j2') }}"
 
-  - include_tasks: post_build.yml
+  - include: post_build.yml
