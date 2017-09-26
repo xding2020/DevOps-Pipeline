@@ -8,6 +8,11 @@
 | Xiangqing Ding(xding3) | Jenkins Automation |
 | Fuxing Luan(fluan)     |                    |
 
+## Run ##
+
+1. Go to [Jenkins](Jenkins) directory
+2. run `ansible-playbook playbook.yml -i inventory`
+
 ## Jenkins Automation ##
 
 
@@ -30,15 +35,18 @@ In this case, we don't install other server for Jenkins. Because Jenkins can run
 
 ## Build ##
 
-
 ### iTrust ###
 
 ### Checkbox.io ###
+
+### Summary ###
 
 
 ## iTrust Post-build Configuration ##
 
 ### Steps Overview ###
+
+### Summary ###
 
 ## Checkbox.io Post-build Configuration ##
 
@@ -48,10 +56,9 @@ In this case, we don't install other server for Jenkins. Because Jenkins can run
 3. Install MySQL 5.6
 4. Deploy iTrust on Tomcat
 
-## Run ##
+### Summary ###
 
-1. Go to [Jenkins](Jenkins) directory
-2. run `ansible-playbook playbook.yml -i inventory`
+
 
 
 ## Reference ##
