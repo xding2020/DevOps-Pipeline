@@ -11,6 +11,9 @@
   - name: Change mode of war package
     raw: chmod 755 "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
 
+  - name: Clean deploy dir
+    raw: rm -rf {{ tomcat_path }}/webapps/iTrust
+
   - name: Creates directory
     file: 
       path: "{{ tomcat_path }}/webapps/iTrust"
@@ -18,12 +21,17 @@
       owner: tomcat
       group: tomcat
       mode: 0755
-  
+
   # - name: Create deploy dir
     # raw: mkdir -p "{{ tomcat_path }}/webapps/iTrust"
 
+  # - name: Unzip war package
+    # command: cd "{{ tomcat_path }}/webapps/iTrust" && 
+
   - name: Unzip war package
-    raw: cd "{{ tomcat_path }}/webapps/iTrust" && unzip -q "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
+    shell: unzip -q {{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war
+    args:
+      chdir: "{{ tomcat_path }}/webapps/iTrust"
 
   # - name: Change ownership of war package
     # raw: chown tomcat:tomcat "{{ deploy_path }}/iTrust/iTrust/target/iTrust-23.0.0.war"
