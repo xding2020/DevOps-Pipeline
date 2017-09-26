@@ -28,10 +28,10 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>mkdir -p $WORKSPACE/checkbox-post-build/CM/CheckBoxIOPostBuild/keys
-mv $WORKSPACE/../aws.pem $WORKSPACE/checkbox-post-build/CM/CheckBoxIOPostBuild/keys/aws.pem
-mv $WORKSPACE/../inventory_checkbox $WORKSPACE/checkbox-post-build/CM/CheckBoxIOPostBuild/inventory
-cd $WORKSPACE/checkbox-post-build/CM/CheckBoxIOPostBuild
+      <command>mkdir -p $WORKSPACE/CM/CheckBoxIOPostBuild/keys
+cp $WORKSPACE/../aws.pem $WORKSPACE/CM/CheckBoxIOPostBuild/keys/aws.pem
+mv $WORKSPACE/../inventory_checkbox $WORKSPACE/CM/CheckBoxIOPostBuild/inventory
+cd $WORKSPACE/CM/CheckBoxIOPostBuild
 ansible-playbook playbook.yml -i inventory</command>
     </hudson.tasks.Shell>
   </builders>

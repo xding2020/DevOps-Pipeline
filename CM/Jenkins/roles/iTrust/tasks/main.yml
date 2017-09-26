@@ -23,8 +23,8 @@
           \"credentials\": {
             \"scope\": \"GLOBAL\",
             \"id\": \"{{ cred_id }}\",
-            \"username\": \"{{ cred_user }}\",
-            \"password\": \"{{ cred_passwd }}\",
+            \"username\": \"dding3\",
+            \"password\": \"1990O22&ddD\",
             \"description\": \"\",
             \"$class\": \"com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl\"
           }
