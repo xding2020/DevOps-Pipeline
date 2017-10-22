@@ -1,13 +1,64 @@
-# CSC519 Project
+# Milestone 1 - Configuration Management and Build #
 
-### Team Memeber:
+### Team Member:
 
-  * Dian Ding(dding3)  
-  * Kai Lu(klu2)   
-  * Xiangqing Ding(xding3)  
-  * Fuxing Luan(fluan)  
+| Member                 | Contribution |
+| :---                   | :---         |
+| Dian Ding(dding3)      | iTrust Deployment |
+| Kai Lu(klu2)           | CheckBox.IO Deployment |
+| Xiangqing Ding(xding3) | Jenkins Automation |
+| Fuxing Luan(fluan)     | Tesing and documenting |
+
+## Build Steps ##
+
+### Jenkins Automation ###
 
 
-### Milstones
+#### Steps Overview ####
 
-[Configuration Management and Build](CM)
+1. Install Java 8 [[1]](https://jenkins.io/doc/book/getting-started/installing/)
+[[2]](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
+2. Install Jenkins
+3. Disable Jenkins security
+4. Install Jenkins plugins
+
+#### Summary ####
+In this step, the main challenge is how to handle the authentication automatically. After some researches and discussion, we decided to disable the security functionality of Jenkins, by modifying Jenkins configuration file. This method may not be perfect but easy and quick.
+
+For installing Java 8 on Ubuntu 16.04, we used `apt-get install default-jre default-jdk`. But this may not work for other Ubuntu version. We added another general way in our script but commented it.
+
+In this case, we don't install other server for Jenkins. Because Jenkins can run stand-alone in its own process using its own built-in web server (Jetty)
+[[1]](https://jenkins.io/doc/book/getting-started/installing/)
+
+
+### iTrust Post-build Configuration ###
+
+#### Steps Overview ####
+1. Install Java 8
+2. Install Tomcat 9
+3. Install MySQL 5.6
+4. Deploy iTrust on Tomcat
+
+### Checkbox.io Post-build Configuration ###
+
+#### Steps Overview ####
+1. Install Node.js
+2. Install MongoDB
+3. Install Nginx
+4. Deploy checkbox.io on Nginx
+
+## Run ##
+
+1. Go to [Jenkins](Jenkins) directory
+2. run `ansible-playbook playbook.yml -i inventory`
+
+
+## Demo ##
+
+[Link to video](https://youtu.be/uW1elTHM2Bg)
+
+## Reference ##
+[[1]https://jenkins.io/doc/book/getting-started/installing/](https://jenkins.io/doc/book/getting-started/installing/ "https://jenkins.io/doc/book/getting-started/installing/")
+
+[[2]https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04 "https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04")
+
