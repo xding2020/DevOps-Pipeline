@@ -3,10 +3,10 @@
 
 | Member                 | Contribution |
 | :---                   | :---         |
-| Dian Ding(dding3)      | iTrust Deployment |
-| Kai Lu(klu2)           | CheckBox.IO Deployment |
-| Xiangqing Ding(xding3) | Jenkins Automation |
-| Fuxing Luan(fluan)     | Tesing and documenting |
+| Dian Ding(dding3)      |  |
+| Kai Lu(klu2)           |  |
+| Xiangqing Ding(xding3) |  |
+| Fuxing Luan(fluan)     |  |
 
 
 ## Run ##
