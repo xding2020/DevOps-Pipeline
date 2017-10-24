@@ -93,7 +93,22 @@
         # url: "http://localhost:8080"
     # with_dependencies: yes
     with_items:
-        - github
+        - javadoc
+        - structs
+        - junit
+        - display-url-api
+        - mailer
+        - workflow-step-api
+        - workflow-scm-step
+        - credentials
+        - script-security
+        - matrix-project
+        - scm-api
+        - ssh-credentials
+        - maven-plugin
+        - git-client
+        - git
+        - jacoco
     tags: jenkins-plugin
 
   # Restart Jenkins again otherwise plugin won't take effect

@@ -1,0 +1,6 @@
+basedir: /src/www
+workspace: /src/www/fuzzer
+workbranch: fuzzer
+
+githubuser: dding3
+githubpassword: 1990O22&ddD

@@ -2,6 +2,8 @@ deploy_path: '/src/www'
 
 tomcat_path: '/usr/share/tomcat'
 
+tomcat_mirror: 'http://apache.claz.org/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.tar.gz'
+
 http_port: 8080
 https_port: 8443
 

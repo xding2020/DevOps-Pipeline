@@ -8,6 +8,7 @@
       - maven
       - python-jenkins
       - python-lxml
+      - unzip
 
   # - name: Set NCSU Git credentials
   #   template: 
@@ -35,6 +36,22 @@
       name: iTrust
       state: present
       config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}"
+
+  - name: Setup iTrust Fuzzer build job
+    jenkins_job:
+      name: iTrust-Fuzzer
+      state: present
+      config: "{{ lookup('template', 'templates/iTrust_Fuzzer.config.xml.j2') }}"
+
+  - name: Creates directory
+    file: 
+      path: "{{ deploy_path }}/deployment"
+      state: directory
+      mode: 0755
+
+  - include: install_tomcat.yml
+
+  - include: install_mysql.yml
 
   - include: post_build.yml
   
