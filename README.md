@@ -3,17 +3,11 @@
 
 | Member                 | Contribution |
 | :---                   | :---         |
-<<<<<<< HEAD
 | Dian Ding(dding3)      | iTrust Jobs setup, Testing Component, Useless test detector |
 | Kai Lu(klu2)           | Commit Fuzzer, Code Fuzzer |
 | Xiangqing Ding(xding3) | Analysis and build failure |
 | Fuxing Luan(fluan)     | Analysis and build failure |
-=======
-| Dian Ding(dding3)      |  |
-| Kai Lu(klu2)           |  |
-| Xiangqing Ding(xding3) |  |
-| Fuxing Luan(fluan)     |  |
->>>>>>> 3340d31fdf7bb9314d2ab72ad8653dc02ee1fb8a
+
 
 
 ## iTrust ##
@@ -53,12 +47,17 @@
   ```
   
 ### Results ###
-* Test results
-![coverage](test-result.png)
-* Coverage
-![coverage](coverage-summary.png)
-* Useless test detect
-![coverage](useless-test.png)
+* Test results  
+
+![coverage](test-result.png)  
+
+* Coverage  
+
+![coverage](coverage-summary.png)  
+
+* Useless test detect  
+
+![coverage](useless-test.png)  
 
 
 ## Demo ##
