@@ -38,40 +38,55 @@ function FunctionBuilder()
 	this.SimpleCyclomaticComplexity = 0;
 	// The max depth of scopes (nested ifs, loops, etc)
 	this.MaxNestingDepth  = 0;
-	// The max number of conditions if one decision statement.
-	this.SyncCalls = 0;
+	// The max number of conditions if one decision statement
 	this.MaxConditions = 0;
+	// The number of Sync method calls
+	this.SyncCallCount = 0;
+	// The number of return statement
 	this.Returns = 0;
+	// The length of longest message chains
 	this.MaxMessageChains = 0;
+	// The start and end location of the function
 	this.StartLine = 0;
  	this.EndLine = 0;
 
 	this.report = function()
 	{
-		// console.log(
-		//    (
-		//    	"{0}(): {1}\n" +
-		//    	"============\n" +
-		// 	   "SimpleCyclomaticComplexity: {2}\t" +
-		// 		"MaxNestingDepth: {3}\t" +
-		// 		"MaxConditions: {4}\t" +
-		// 		"Parameters: {5}\t" +
-		// 		"Returns: {6}\t" +
-		// 		"MaxMessageChains: {7}\n\n"
-		// 	)
-		// 	.format(this.FunctionName, this.StartLine,
-		// 		     this.SimpleCyclomaticComplexity, this.MaxNestingDepth,
-		// 	        this.MaxConditions, this.ParameterCount, this.Returns, this.MaxMessageChains)
-		// );
+		console.log(
+		    (
+		    	"{0}(): {1}\n" +
+				"============\n" +
+				"Method Length: {2} | " + 
+				"Sync Calls: {3} | " +
+		 	    "Max Message Chains: {4} | " +
+		 		"Max Nesting Depth: {5} | " +
+		 		"Max Conditions: {6} | " +
+		 		"Parameters: {7} | " +
+		 		"Returns: {8}\n"
+		 	)
+			 .format(this.FunctionName, this.StartLine,
+					this.EndLine - this.StartLine,
+					this.SyncCallCount,
+					this.MaxMessageChains, 
+					this.MaxNestingDepth,
+					this.MaxConditions, 
+					this.ParameterCount, 
+					this.Returns)
+		);
+
+		if (this.EndLine - this.StartLine > 120) {
+			console.log("Fail. Long method ( > 120 lines)\n");
+		}
+		if (this.SyncCallCount > 1) {
+			console.log("Fail. Sync call more than once\n");
+		}
 		if (this.MaxMessageChains > 3) {
-			console.log("Fail, MaxMessageChains > 3");
+			console.log("Fail. MaxMessageChains > 3\n");
 		}
 		if (this.MaxNestingDepth > 3) {
-			console.log("Fail, big O > O(n^3)");
+			console.log("Fail. Big O > O(n^3)\n");
 		}
-		if (this.EndLine - this.StartLine > 120) {
-			console.log("Fail, long method(> 120 lines)");
-		}
+
 	}
 };
 
@@ -86,16 +101,7 @@ function FileBuilder()
 	// Number of Conditions in a file
 	this.AllConditions = 0;
 
-	this.report = function()
-	{
-		// console.log (
-		// 	( "{0}\n" +
-		// 	  "~~~~~~~~~~~~\n"+
-		// 	  "ImportCount {1}\t" +
-		// 	  "Strings {2}\t" +
-		// 		"Conditions {3}\n"
-		// 	).format( this.FileName, this.ImportCount, this.Strings, this.AllConditions ));
-	}
+	this.report = function(){ }
 }
 
 // A function following the Visitor pattern.
@@ -165,7 +171,6 @@ function complexity(filePath)
 			builder.StartLine    = node.loc.start.line;
 			builder.EndLine      = node.loc.end.line;
 			builder.FunctionName = functionName(node);
-			builder.StartLine    = node.loc.start.line;
 			builders[builder.FunctionName] = builder;
 
 			traverseWithParents(node, function (child)
@@ -222,6 +227,7 @@ function complexity(filePath)
 					if (res > builder.MaxNestingDepth)
 						builder.MaxNestingDepth = res;
 				}
+				
 			});
 		}
 		//String Usage
