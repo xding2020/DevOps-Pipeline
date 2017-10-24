@@ -5,8 +5,8 @@
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust Jobs setup, Testing Component, Useless test detector |
 | Kai Lu(klu2)           | Commit Fuzzer, Code Fuzzer |
-| Xiangqing Ding(xding3) | Analysis and build failure |
-| Fuxing Luan(fluan)     | Analysis and build failure |
+| Xiangqing Ding(xding3) | Analysis Component |
+| Fuxing Luan(fluan)     | Test and Report |
 
 
 
@@ -66,6 +66,7 @@
 | :---                   | :---         |
 | Test suites, coverage, and test results      | [Link](https://youtu.be/HnLdSuTxcw4) |
 | Commit fuzzer, Uselesss test detector        | [Link](https://youtu.be/K9vi80O5OqA) |
+| Analysis COmponent						   | 										|		
 
 
 
