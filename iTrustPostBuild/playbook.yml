@@ -1,6 +1,0 @@
----
-- hosts: all
-  gather_facts: no
-  
-  roles:
-    - { name: setup, become: yes, become_method: sudo }
