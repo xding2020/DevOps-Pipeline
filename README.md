@@ -56,9 +56,17 @@
 
 ![detection results](/Images/useless-test.png)  
 
+<br>
 
 ## Analysis Component ##
 
+### Specification ###
+
+1. Instead of using the [checkbox.io repo](https://github.com/chrisparnin/checkbox.io) provided by instructor in this part, we used a [forked one](https://github.com/DinMouMou/checkbox.io). The only difference between these two repos is that the forked one contains the analysis script, which provides convenience for analysis.
+2. In our implementation, the build will fail when the output of analysis include string `**Fail**`. To fail the build, we use command `exit 0`.
+
+
+### Analysis Report ###
 
 
 ## Demo ##
@@ -69,5 +77,3 @@
 | Commit fuzzer, Useless test detector        | [Link](https://youtu.be/K9vi80O5OqA) |
 | Analysis Component						   | [Link]()|		
 
-
-## Reference ##

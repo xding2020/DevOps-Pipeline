@@ -8,7 +8,8 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/chrisparnin/checkbox.io.git</url>
+        <url>https://github.com/DinMouMou/checkbox.io</url>
+		<credentialsId>932e0fc9-b0cd-4892-8903-9bd57c92898b</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -29,8 +30,13 @@
   <builders>
     <hudson.tasks.Shell>
 		<command>
-			cd ./server-side/site
-			npm install
+		
+			cd ./server-side
+			npm install --prefix ./analysis/;
+			if node ./analysis/analysis.js ./site/marqdown.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis -> Fail build&quot;; exit 1;
+			else npm install --prefix ./site; 
+			
 		</command>
     </hudson.tasks.Shell>
   </builders>
