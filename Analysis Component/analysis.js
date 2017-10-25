@@ -20,6 +20,7 @@ function main()
 		"| :---          | :---         	| :---       | :---         		| :---         		|"
 	);
 	*/
+	
 	// Report
 	for( var node in builders )
 	{
@@ -67,13 +68,14 @@ function FunctionBuilder()
 		 		" {5} | " 
 			)
 			.format(this.FunctionName, this.StartLine,
-				this.EndLine - this.StartLine,
+				this.EndLine - this.StartLine +1,
 				this.SyncCallCount,
 				this.MaxMessageChains, 
 				this.MaxNestingDepth
 			)
 		);
 		*/
+
 		
 		console.log(
 		    (
@@ -88,7 +90,7 @@ function FunctionBuilder()
 		 		"Returns: {8}\n"
 		 	)
 			 .format(this.FunctionName, this.StartLine,
-					this.EndLine - this.StartLine,
+					this.EndLine - this.StartLine + 1,
 					this.SyncCallCount,
 					this.MaxMessageChains, 
 					this.MaxNestingDepth,
@@ -242,8 +244,12 @@ function complexity(filePath)
 				}
 				//SyncCallCount
 				if(child.type === 'CallExpression'){
-					var callName = String(child.callee.name);
-					if(callName.includes('Sync')) builder.SyncCallCount++;
+					if( String(child.callee.name).includes('Sync') ) 
+						builder.SyncCallCount++;
+					if ( child.callee.hasOwnProperty('property') ) {
+						if(String(child.callee.property.name).includes('Sync')) builder.SyncCallCount++;
+					}
+					
 				}
 			});
 		}
