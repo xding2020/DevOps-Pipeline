@@ -75,16 +75,16 @@ function FunctionBuilder()
 		);
 
 		if (this.EndLine - this.StartLine > 120) {
-			console.log("Fail. Long method ( > 120 lines)\n");
+			console.log("**Fail**. Long method ( > 120 lines)\n");
 		}
 		if (this.SyncCallCount > 1) {
-			console.log("Fail. Sync call more than once\n");
+			console.log("**Fail**. Sync call more than once\n");
 		}
 		if (this.MaxMessageChains > 3) {
-			console.log("Fail. MaxMessageChains > 3\n");
+			console.log("**Fail**. MaxMessageChains > 3\n");
 		}
 		if (this.MaxNestingDepth > 3) {
-			console.log("Fail. Big O > O(n^3)\n");
+			console.log("**Fail**. Big O > O(n^3)\n");
 		}
 
 	}
@@ -186,27 +186,16 @@ function complexity(filePath)
 					builder.Returns++;
 				}
 				//MaxMessageChains
-				if (child.type === 'MemberExpression')
-				{
-					// if(child.type === 'ReturnStatement')
-					temp = child;
-					// else
-					//  	temp = child.expression;
-					res = 0;
-					while (temp != null) {
-						if(temp.type == "MemberExpression") {
-							res++;
-							temp = temp.object;
-							continue;
+				if(child.type === "MemberExpression") {
+					var maxChains = 0;
+					traverseWithParents(child, function (grandchild) {
+						if(grandchild.type === "MemberExpression") {
+							maxChains += 1;
 						}
-						else if (temp.type == "CallExpression"){
-							temp = temp.callee;
-							continue;
-						} else
-							temp = temp.object;
+					});
+					if(maxChains > builder.MaxMessageChains) {
+						builder.MaxMessageChains = maxChains;
 					}
-					if(res > builder.MaxMessageChains)
-						builder.MaxMessageChains = res;
 				}
 				//MaxConditions
 				if (child.type === 'IfStatement')
@@ -227,7 +216,11 @@ function complexity(filePath)
 					if (res > builder.MaxNestingDepth)
 						builder.MaxNestingDepth = res;
 				}
-				
+				//SyncCallCount
+				if(child.type === 'CallExpression'){
+					var callName = String(child.callee.name);
+					if(callName.includes('Sync')) builder.SyncCallCount++;
+				}
 			});
 		}
 		//String Usage
