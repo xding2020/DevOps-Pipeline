@@ -63,17 +63,18 @@
 ### Specification ###
 
 1. Instead of using the [checkbox.io repo](https://github.com/chrisparnin/checkbox.io) provided by instructor in this part, we used a [forked one](https://github.com/DinMouMou/checkbox.io). The only difference between these two repos is that the forked one contains the analysis script, which provides convenience for analysis.
-2. In our implementation, the build will fail when the output of analysis include string `**Fail**`. To fail the build, we use command `exit 0`.
+2. In our implementation, the build will fail when the output of analysis include string `**Fail**`. To fail the build, we utilize command `exit 0`.
 
 
 ### Analysis Report ###
+[https://github.ncsu.edu/dding3/DevOps/blob/M2/Analysis%20Component/README.md](https://github.ncsu.edu/dding3/DevOps/blob/M2/Analysis%20Component/README.md)
 
 
 ## Demo ##
 
-| Task Description       | Screencast |
-| :---                   | :---         |
-| Test suites, coverage, and test results      | [Link](https://youtu.be/HnLdSuTxcw4) |
-| Commit fuzzer, Useless test detector        | [Link](https://youtu.be/K9vi80O5OqA) |
-| Analysis Component						   | [Link]()|		
+| Task Description       | Screencast 			|
+| :---                   | :---         		|
+| Test suites, coverage, and test results      	| [Link](https://youtu.be/HnLdSuTxcw4) |
+| Commit fuzzer, Useless test detector        	| [Link](https://youtu.be/K9vi80O5OqA) |
+| Analysis Component						   	| [Link]()|		
 

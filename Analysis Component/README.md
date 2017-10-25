@@ -85,3 +85,6 @@ In our analysis, four primary parts are included:
 |readFileStream()| 31 |  0 |  2 |  0 |
 |readFile()| 8 |  0 |  2 |  0 |
 |uploadFile()| 31 |  0 |  2 |  1 |
+
+## Note ##
+1. In some implementation, the method length could be **(End Line - Star Line + 1)**. In our opinion, it doesn't matter so we keep our implementation.

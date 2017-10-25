@@ -34,8 +34,27 @@
 			cd ./server-side
 			npm install --prefix ./analysis/;
 			if node ./analysis/analysis.js ./site/marqdown.js | grep -q &apos;**Fail**&apos;;
-			then echo &quot;Fail analysis -> Fail build&quot;; exit 1;
+			then echo &quot;Fail analysis(marqdown.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/server.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(server.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/admin.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(admin.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/create.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(create.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/csv.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(csv.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/designer.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(designer) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/live.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(live.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/study.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(study.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/studyModel.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(studyModel.js) -> Fail build&quot;; exit 1;
+			else if node ./analysis/analysis.js ./site/routes/upload.js | grep -q &apos;**Fail**&apos;;
+			then echo &quot;Fail analysis(upload.js) -> Fail build&quot;; exit 1;
 			else npm install --prefix ./site; 
+			fi
 			
 		</command>
     </hudson.tasks.Shell>
