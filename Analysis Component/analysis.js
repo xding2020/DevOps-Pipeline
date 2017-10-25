@@ -14,7 +14,12 @@ function main()
 	var filePath = args[0];
 
 	complexity(filePath);
-
+	/*
+	console.log(
+		"| Function name | Method Length | Sync Calls | Longest Message Chains | Max Nesting Depth 	|\n"+
+		"| :---          | :---         	| :---       | :---         		| :---         		|"
+	);
+	*/
 	// Report
 	for( var node in builders )
 	{
@@ -52,6 +57,24 @@ function FunctionBuilder()
 
 	this.report = function()
 	{
+		/*
+		console.log(
+			(
+				"|{0}()|" +
+				" {2} | " + 
+				" {3} | " +
+		 	    " {4} | " +
+		 		" {5} | " 
+			)
+			.format(this.FunctionName, this.StartLine,
+				this.EndLine - this.StartLine,
+				this.SyncCallCount,
+				this.MaxMessageChains, 
+				this.MaxNestingDepth
+			)
+		);
+		*/
+		
 		console.log(
 		    (
 		    	"{0}(): {1}\n" +
@@ -86,6 +109,7 @@ function FunctionBuilder()
 		if (this.MaxNestingDepth > 3) {
 			console.log("**Fail**. Big O > O(n^3)\n");
 		}
+		
 
 	}
 };
