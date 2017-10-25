@@ -1,18 +1,17 @@
-# Milestone 2 - Test + Analysis Milestone #
+# Milestone 2 - Test + Analysis #
 
 
 | Member                 | Contribution |
 | :---                   | :---         |
-| Dian Ding(dding3)      | iTrust Jobs setup, Testing Component, Useless test detector |
-| Kai Lu(klu2)           | Commit Fuzzer, Code Fuzzer |
+| Dian Ding(dding3)      | Testing Component, Useless test detector |
+| Kai Lu(klu2)           | Commit Fuzzer |
 | Xiangqing Ding(xding3) | Analysis Component |
 | Fuxing Luan(fluan)     | Test and Report |
 
 
+## Testing Component ##
 
-## iTrust ##
-
-### Setup and Run ###
+### Jenkins Setup ###
 1. Setup Jenkins and Jobs
 
   ```
@@ -49,15 +48,19 @@
 ### Results ###
 * Test results  
 
-![coverage](test-result.png)  
+![coverage](/Images/test-result.png)  
 
 * Coverage  
 
-![coverage](coverage-summary.png)  
+![coverage](/Images/coverage-summary.png)  
 
-* Useless test detect  
+* Useless test detector  
 
-![coverage](useless-test.png)  
+![coverage](/Images/useless-test.png)  
+
+
+## Analysis Component ##
+
 
 
 ## Demo ##
@@ -65,10 +68,8 @@
 | Task Description       | Screencast |
 | :---                   | :---         |
 | Test suites, coverage, and test results      | [Link](https://youtu.be/HnLdSuTxcw4) |
-| Commit fuzzer, Uselesss test detector        | [Link](https://youtu.be/K9vi80O5OqA) |
-| Analysis COmponent						   | 										|		
-
-
+| Commit fuzzer, Useless test detector        | [Link](https://youtu.be/K9vi80O5OqA) |
+| Analysis Component						   | 										|		
 
 
 ## Reference ##
