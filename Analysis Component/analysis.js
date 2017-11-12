@@ -14,7 +14,15 @@ function main()
 	var filePath = args[0];
 
 	complexity(filePath);
-
+	
+	/*
+	console.log(
+		"| Function name | Method Length | Sync Calls | Longest Message Chains | Max Nesting Depth 	|\n"+
+		"| :---          | :---         	| :---       | :---         		| :---         		|"
+	);
+	*/
+	
+	
 	// Report
 	for( var node in builders )
 	{
@@ -52,6 +60,26 @@ function FunctionBuilder()
 
 	this.report = function()
 	{
+		/*
+		console.log(
+			(
+				"|{0}()|" +
+				" {2} | " + 
+				" {3} | " +
+		 	    " {4} | " +
+		 		" {5} | " 
+			)
+			.format(this.FunctionName, this.StartLine,
+				this.EndLine - this.StartLine +1,
+				this.SyncCallCount,
+				this.MaxMessageChains, 
+				this.MaxNestingDepth
+			)
+		);
+		*/
+		
+
+		
 		console.log(
 		    (
 		    	"{0}(): {1}\n" +
@@ -65,7 +93,7 @@ function FunctionBuilder()
 		 		"Returns: {8}\n"
 		 	)
 			 .format(this.FunctionName, this.StartLine,
-					this.EndLine - this.StartLine,
+					this.EndLine - this.StartLine + 1,
 					this.SyncCallCount,
 					this.MaxMessageChains, 
 					this.MaxNestingDepth,
@@ -75,17 +103,19 @@ function FunctionBuilder()
 		);
 
 		if (this.EndLine - this.StartLine > 120) {
-			console.log("Fail. Long method ( > 120 lines)\n");
+			console.log("**Fail**. Long method ( > 120 lines)\n");
 		}
 		if (this.SyncCallCount > 1) {
-			console.log("Fail. Sync call more than once\n");
+			console.log("**Fail**. Sync call more than once\n");
 		}
 		if (this.MaxMessageChains > 3) {
-			console.log("Fail. MaxMessageChains > 3\n");
+			console.log("**Fail**. MaxMessageChains > 3\n");
 		}
 		if (this.MaxNestingDepth > 3) {
-			console.log("Fail. Big O > O(n^3)\n");
+			console.log("**Fail**. Big O > O(n^3)\n");
 		}
+		
+		
 
 	}
 };
@@ -118,7 +148,7 @@ function traverseWithParents(object, visitor)
             if (typeof child === 'object' && child !== null && key != 'parent')
             {
             	child.parent = object;
-							traverseWithParents(child, visitor);
+					traverseWithParents(child, visitor);
             }
         }
     }
@@ -159,7 +189,7 @@ function complexity(filePath)
 	// Tranverse program with a function visitor.
 	traverseWithParents(ast, function (node)
 	{
-		if (node.type === 'FunctionDeclaration')
+		if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression')
 		{
 
 			var builder = new FunctionBuilder();
@@ -170,7 +200,7 @@ function complexity(filePath)
 			}
 			builder.StartLine    = node.loc.start.line;
 			builder.EndLine      = node.loc.end.line;
-			builder.FunctionName = functionName(node);
+			builder.FunctionName = functionName(node, buf);
 			builders[builder.FunctionName] = builder;
 
 			traverseWithParents(node, function (child)
@@ -180,33 +210,23 @@ function complexity(filePath)
 				{
 					builder.SimpleCyclomaticComplexity += 1;
 				}
+
 				//Returns
 				if (child.type == 'ReturnStatement')
 				{
 					builder.Returns++;
 				}
 				//MaxMessageChains
-				if (child.type === 'MemberExpression')
-				{
-					// if(child.type === 'ReturnStatement')
-					temp = child;
-					// else
-					//  	temp = child.expression;
-					res = 0;
-					while (temp != null) {
-						if(temp.type == "MemberExpression") {
-							res++;
-							temp = temp.object;
-							continue;
+				if(child.type === "MemberExpression") {
+					var maxChains = 0;
+					traverseWithParents(child, function (grandchild) {
+						if(grandchild.type === "MemberExpression") {
+							maxChains += 1;
 						}
-						else if (temp.type == "CallExpression"){
-							temp = temp.callee;
-							continue;
-						} else
-							temp = temp.object;
+					});
+					if(maxChains > builder.MaxMessageChains) {
+						builder.MaxMessageChains = maxChains;
 					}
-					if(res > builder.MaxMessageChains)
-						builder.MaxMessageChains = res;
 				}
 				//MaxConditions
 				if (child.type === 'IfStatement')
@@ -221,13 +241,25 @@ function complexity(filePath)
 					if (temp > builder.MaxConditions)
 						builder.MaxConditions = temp;
 				}
+				
 				//MaxNestingDepth
 				if (isDecision(child)){
+					//console.log(builder.FunctionName+child.type);
 					res = nestDepth(child);
-					if (res > builder.MaxNestingDepth)
+					if (res > builder.MaxNestingDepth){
 						builder.MaxNestingDepth = res;
+					}
 				}
 				
+				//SyncCallCount
+				if(child.type === 'CallExpression'){
+					if( String(child.callee.name).includes('Sync') ) 
+						builder.SyncCallCount++;
+					if ( child.callee.hasOwnProperty('property') ) {
+						if(String(child.callee.property.name).includes('Sync')) builder.SyncCallCount++;
+					}
+					
+				}
 			});
 		}
 		//String Usage
@@ -284,25 +316,45 @@ function isDecision(node)
 // Helper function for counting nesting
 function nestDepth(child)
 {
-
-	if (!child) {
+	//console.log(child.type);
+	if ( !child || child.length === 0 ) {
 		return 0;
 	}
+
 	if (isDecision(child))
 	{
 		max = 0;
 		if(child.type === 'IfStatement') {
 			// console.log(child.consequent.body);
-			if(child.consequent.type == "BlockStatement"){
-				for (obj in child.consequent.body) {
-					res = nestDepth(child.consequent.body[obj]);
-					// console.log("IF"+child.test.operator+res);
-					if(res > max) max = res;
+			if(child.consequent){
+				if(child.consequent.type == "BlockStatement"){
+					for (obj in child.consequent) {
+						res = nestDepth(child.consequent.body[obj]);
+						// console.log("IF"+child.test.operator+res);
+						if(res > max) max = res;
+					}
+				} else {
+					//for (obj in child.consequent) {
+						//console.log(obj);
+						res = nestDepth(child.consequent);
+						if(res > max) max = res;
+					//}
 				}
-			} else {
-				for (obj in child.consequent) {
-					res = nestDepth(child.consequent[obj]);
-					if(res > max) max = res;
+			}
+
+
+			if( child.alternate ){
+				if(child.alternate.type == "BlockStatement"){
+					for (obj in child.alternate.body) {
+						res = nestDepth(child.alternate.body[obj]);
+						// console.log("IF"+child.test.operator+res);
+						if(res > max) max = res;
+					}
+				} else {
+					//for (obj in child.alternate) {
+						res = nestDepth(child.alternate);
+						if(res > max) max = res;
+					//}
 				}
 			}
 		}
@@ -322,19 +374,23 @@ function nestDepth(child)
 			}
 		}
 		return max+1;
-	}	else {
+	} else {
 		return 0;
 	}
 }
 
+
 // Helper function for printing out function name.
-function functionName( node )
+function functionName( node, buf )
 {
-	if( node.id )
+	if ( node.id )
 	{
 		return node.id.name;
-	}
-	return "anon function @" + node.loc.start.line;
+	}  else if ( node.parent.left ) {
+		var leftHand = buf.substring(node.parent.left.range[0], node.parent.left.range[1]);
+		return leftHand;
+	} 	
+	return "Anon function @" + node.loc.start.line;
 }
 
 // Helper function for allowing parameterized formatting of strings.

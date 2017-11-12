@@ -11,6 +11,6 @@
     jenkins_job:
       name: checkbox
       state: present
-      config: "{{ lookup('template', 'templates/checkboxBuild.xml.j2') }}"
+      config: "{{ lookup('template', 'templates/checkbox.xml.j2') }}"
 
   - include: post_build.yml

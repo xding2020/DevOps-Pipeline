@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
-  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
@@ -8,7 +7,8 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/chrisparnin/checkbox.io.git</url>
+        <url>https://github.ncsu.edu/dding3/DevOps.git</url>
+        <credentialsId>{{ cred_id }}</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -28,20 +28,16 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd ./server-side/site
-npm install</command>
+		<command>
+			mkdir -p $WORKSPACE/CM/CheckBoxIOPostBuild/keys
+			cp $WORKSPACE/../aws.pem $WORKSPACE/CM/CheckBoxIOPostBuild/keys/aws.pem
+			chmod 400 $WORKSPACE/CM/CheckBoxIOPostBuild/keys/aws.pem
+			cp $WORKSPACE/../inventory_checkbox $WORKSPACE/CM/CheckBoxIOPostBuild/inventory
+			cd $WORKSPACE/CM/CheckBoxIOPostBuild
+			ansible-playbook playbook.yml -i inventory
+		</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>checkbox-post-build</childProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>
