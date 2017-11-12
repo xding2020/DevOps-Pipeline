@@ -1,4 +1,4 @@
-# Milestone 2 - Test + Analysis Milestone #
+# Milestone 3 - Deployment #
 
 
 | Member                 | Contribution |
