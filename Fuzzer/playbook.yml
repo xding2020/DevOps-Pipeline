@@ -1,6 +1,0 @@
----
-- hosts: all
-  gather_facts: no
-  
-  roles:
-    - { name: fuzzer, become: yes, become_method: sudo }
