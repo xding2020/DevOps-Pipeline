@@ -21,6 +21,12 @@
 
 # Rolling Update #
 
+# Specification #
+
+iTrust Repo: 
+
+checkBox.io Repo: [https://github.com/DinMouMou/checkbox.io](https://github.com/DinMouMou/checkbox.io)
+
 # Demo #
 
 
