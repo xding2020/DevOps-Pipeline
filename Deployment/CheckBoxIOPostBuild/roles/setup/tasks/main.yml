@@ -33,7 +33,7 @@
 
   - name: Download the file and untar
     unarchive:
-      src: https://github.com/chrisparnin/checkbox.io/archive/master.zip
+      src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
       dest: /tmp/
       remote_src: yes
   

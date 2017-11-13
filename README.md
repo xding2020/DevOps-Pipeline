@@ -19,10 +19,12 @@
 ### Feature Flag ###
 To achieve this part, a Redis server is set up in the master server using Ansible (Script). And Redis client is embedded in the checkBox.io application (Code). As a result, every checkBox.io instance will contain one Redis clients, and all clients are connected with the same server. 
 
-To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master server. Another way of setting feature flag
+To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master server. Another way of setting feature flag is running setFlag.js locally (`node setFlag.js`). This file contain a Redis client connecting to the same server.
+
+1. 需要修改Server.js里面的对应的Server IP
 
 ## Canary Release ##
-A Nginx based proxy is implemented in the master server.
+The proxy is built based on Nginx server, which is installed and configured in the master server.
 
 ## Rolling Update ##
 

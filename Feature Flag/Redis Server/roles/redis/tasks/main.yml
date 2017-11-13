@@ -1,12 +1,17 @@
 ---
 
+  - name: Add Redis Repo into source list
+    apt_repository:
+      repo: 'ppa:chris-lea/redis-server'
+      state: present
+      update_cache: yes
+
   - name: Install Redis server
     apt:
       name: redis-server
       state: present
 
-  - name: Configure 
+  - name: Create Feature Flag (Default off)
+    command: redis-cli set mdFlag false
 
 
-  - name: Start Redis server
-    command: redis-server start
