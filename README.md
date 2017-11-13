@@ -7,26 +7,31 @@
 | Xiangqing Ding(xding3) |  |
 | Fuxing Luan(fluan)     |  |
 
+## Overview ##
 
-# Deployment #
+## Deployment ##
 
 
-# Infrastructure Upgrade #
+## Infrastructure Upgrade ##
 
-## Nomad Cluster ##
+### Nomad Cluster ###
 
-## Feature Flag ##
+### Feature Flag ###
+To achieve this part, a Redis server is set up in the master server using Ansible (Script). And Redis client is embedded in the checkBox.io application (Code). As a result, every checkBox.io instance will contain one Redis clients, and all clients are connected with the same server. 
 
-# Canary Release #
+To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master server. Another way of setting feature flag
 
-# Rolling Update #
+## Canary Release ##
+A Nginx based proxy is implemented in the master server.
 
-# Specification #
+## Rolling Update ##
 
-iTrust Repo: 
+## Specification ##
 
-checkBox.io Repo: [https://github.com/DinMouMou/checkbox.io](https://github.com/DinMouMou/checkbox.io)
+iTrust Repo Used: 
 
-# Demo #
+checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github.com/DinMouMou/checkbox.io)
+
+## Demo ##
 
 

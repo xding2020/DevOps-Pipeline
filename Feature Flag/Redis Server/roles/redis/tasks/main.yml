@@ -9,5 +9,4 @@
 
 
   - name: Start Redis server
-    command:
-      name: redis-server start
+    command: redis-server start
