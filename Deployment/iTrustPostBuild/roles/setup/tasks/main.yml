@@ -32,5 +32,5 @@
 
   - include_tasks: install_mysql.yml
 
-  - include_tasks: deploy.yml
+  # - include_tasks: deploy.yml
 

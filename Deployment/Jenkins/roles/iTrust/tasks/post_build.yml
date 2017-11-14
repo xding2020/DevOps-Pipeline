@@ -2,7 +2,7 @@
 
   - name: Setup iTrust-Post-Build build job
     jenkins_job:
-      name: iTrust-Post-Build
+      name: iTrust-Rolling-Update
       state: present
       config: "{{ lookup('template', 'templates/iTrust_Post.config.xml.j2') }}"
 

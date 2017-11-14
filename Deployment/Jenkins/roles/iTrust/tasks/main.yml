@@ -8,8 +8,12 @@
       - maven
       - python-jenkins
       - python-lxml
+      - python-pip
       - unzip
 
+  - name: Install boto
+    pip:
+      name: boto
   # - name: Set NCSU Git credentials
   #   template: 
   #     src: credentials.xml.j2
@@ -41,7 +45,7 @@
     jenkins_job:
       name: iTrust-Deployment
       state: present
-      config: "{{ lookup('template', 'templates/iTrust_deployment.config.xml.j2') }}" 
+      config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}" 
       
   # - name: Create github hook
   #   github_hooks:
@@ -65,9 +69,9 @@
       state: directory
       mode: 0755
 
-  - include: install_tomcat.yml
+  # - include: install_tomcat.yml
 
-  - include: install_mysql.yml
+  # - include: install_mysql.yml
 
   - include: post_build.yml
   

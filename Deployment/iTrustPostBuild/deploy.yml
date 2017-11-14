@@ -1,0 +1,58 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  serial: 1
+
+  tasks:
+  - name: Stop Tomcat
+    systemd: 
+      name: tomcat
+      state: stopped
+
+  # - name: Decommisioning iTrust application on this server
+  #   pause:
+  #     seconds: 10
+
+  - name: Remove old deploy dir
+    raw: rm -rf /usr/share/tomcat/webapps/iTrust
+  
+  - name: Create deploy directory
+    file: 
+      path: /usr/share/tomcat/webapps/iTrust
+      state: directory
+      owner: tomcat
+      group: tomcat
+      mode: 0755
+
+  - name: Copy war package to remote directory
+    copy: 
+      src: /var/lib/jenkins/workspace/iTrust.war
+      dest: /usr/share/tomcat/webapps/iTrust/iTrust.war
+      group: tomcat
+      owner: tomcat
+
+  - name: Unzip war package
+    shell: unzip -q iTrust.war
+    args:
+      chdir: /usr/share/tomcat/webapps/iTrust
+
+  - name: Change ownership of iTrust
+    file: 
+      path: /usr/share/tomcat/webapps/iTrust
+      owner: tomcat
+      group: tomcat
+      state: directory
+      recurse: yes
+
+  - name: Start Tomcat
+    systemd: 
+      name: tomcat 
+      state: started
+
+  - name: Wait for tomcat to start
+    wait_for: 
+      port: 8080
+  
+
+  
