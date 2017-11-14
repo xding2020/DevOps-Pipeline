@@ -12,9 +12,9 @@
 ## Deployment ##
 
 ### Steps for iTrust deployment: 
-1. Navigate to [Jenkins Playbook](Deployment/Jenkins) directory and Run: ```ansible-playbook playbook.yml -i inventory```  
-After the script finished executing, Jenkins will be installed and two jobs "iTrust-Deployment" and "iTrust-Rolling-Update" will be configured. The iTrust-Deployment will be configured with the github hook.
-2. Whenever you push changes to "production" branch of the iTrust project, the "iTrust-Deployment" will start building. After it's done, "iTrust-Rolling-Update" job will start to build automatically and this job will do all the provisioning and configuring jobs for production servers using the rolling update policy.
+1. Navigate to [Jenkins Playbook](Deployment/Jenkins) directory and Run: `ansible-playbook playbook.yml -i inventory`  
+After the script finished executing, Jenkins will be installed and two jobs *iTrust-Deployment* and *iTrust-Rolling-Update* will be configured. The iTrust-Deployment will be configured with the github hook.
+2. Whenever you push changes to **production** branch of the iTrust project, the *iTrust-Deployment* will start building. After it's done, *iTrust-Rolling-Update* job will start to build automatically and this job will do all the provisioning and configuring jobs for production servers using the rolling update policy.
 
 ## Infrastructure Upgrade ##
 
@@ -36,10 +36,14 @@ The ansible script for the rolling update policy is [deploy.yml](Deployment/iTru
 
 ## Specification ##
 
-iTrust Repo Used: 
+iTrust Repo Used: [https://github.ncsu.edu/dding3/iTrust-v23](https://github.ncsu.edu/dding3/iTrust-v23)
 
 checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github.com/DinMouMou/checkbox.io)
 
 ## Demo ##
 
+| Task                 | Link to Screencast |
+| :---                   | :---         |
+| iTrust Deployment      |  |
+| iTrust Rolling Update           |  |
 
