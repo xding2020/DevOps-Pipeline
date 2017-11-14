@@ -3,6 +3,9 @@ ssh_user: ubuntu
 private_key_path: ./keys/aws.pem
 server: 52.203.86.48
 
+githubuser: dding3
+hookoauthkey: 9adb28a7fc6e1fcc8b783534c570b48516422f5a
+
 admin_username: admin
 admin_password: adminpasswd
 

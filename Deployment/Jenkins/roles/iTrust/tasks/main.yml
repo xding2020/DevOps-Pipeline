@@ -14,12 +14,6 @@
   - name: Install boto
     pip:
       name: boto
-  # - name: Set NCSU Git credentials
-  #   template: 
-  #     src: credentials.xml.j2
-  #     dest: /var/lib/jenkins/credentials.xml
-  #     force: yes
-  #     mode: 0644
 
   - name: Create credentials
     raw: "curl -H $(curl -s 'http://{{ inventory_hostname }}:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)') -X POST 'http://{{ inventory_hostname }}:8080/credentials/store/system/domain/_/createCredentials' \
@@ -35,33 +29,11 @@
           }
         }'"
 
-  # - name: Setup iTrust build job
-  #   jenkins_job:
-  #     name: iTrust
-  #     state: present
-  #     config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}"
-
   - name: Setup iTrust build job
     jenkins_job:
       name: iTrust-Deployment
       state: present
       config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}" 
-      
-  # - name: Create github hook
-  #   github_hooks:
-  #     action: create
-  #     hookurl: "http://{{ item }}:8080/github-webhook/"
-  #     user: '{{ gituser }}'
-  #     oauthkey: '{{ oauthkey }}'
-  #     repo: https://api.github.com/repos/dding3/iTrust
-  #   with_item:
-  #     - 52.91.101.40
-
-  # - name: Setup iTrust Fuzzer build job
-  #   jenkins_job:
-  #     name: iTrust-Fuzzer
-  #     state: present
-  #     config: "{{ lookup('template', 'templates/iTrust_Fuzzer.config.xml.j2') }}"
 
   - name: Creates directory
     file: 
@@ -74,4 +46,12 @@
   - include: install_mysql.yml
 
   - include: post_build.yml
+
+  - name: Create github hook
+    github_hooks:
+      action: create
+      hookurl: "http://{{ hostvars[inventory_hostname].groups.nodes[0] }}:8080/github-webhook/"
+      user: "{{ githubuser }}"
+      oauthkey: "{{ hookoauthkey }}"
+      repo: https://api.github.ncsu.edu/repos/dding3/iTrust-v23
   
