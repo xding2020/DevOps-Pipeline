@@ -34,7 +34,9 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd $WORKSPACE/iTrust
-mvn compile</command>
+mvn compile
+mvn -DskipTests=true package
+cp $WORKSPACE/iTrust/target/iTrust-23.0.0.war $WORKSPACE/../iTrust.war</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

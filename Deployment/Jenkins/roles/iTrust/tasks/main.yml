@@ -8,8 +8,12 @@
       - maven
       - python-jenkins
       - python-lxml
+      - python-pip
       - unzip
 
+  - name: Install boto
+    pip:
+      name: boto
   # - name: Set NCSU Git credentials
   #   template: 
   #     src: credentials.xml.j2
