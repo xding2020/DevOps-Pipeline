@@ -1,0 +1,12 @@
+---
+
+  - name: Install Redis server
+    apt:
+      name: redis-server
+      state: present
+
+  - name: Configure 
+
+
+  - name: Start Redis server
+    command: redis-server start

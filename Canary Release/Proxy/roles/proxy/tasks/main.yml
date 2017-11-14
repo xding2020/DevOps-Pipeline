@@ -1,0 +1,25 @@
+---
+- hosts: node0
+  tasks:
+  - name: get nginx
+    sudo: True
+    apt:
+      pkg: nginx
+      state: present
+
+  - name: copy nginx conf
+    sudo: True
+    copy:
+      src: ./nginx.conf
+      dest: /etc/nginx/nginx.conf
+
+  - name: copy site conf
+    sudo: True
+    copy:
+      src: ./default
+      dest: /etc/nginx/sites-available/default
+  - name: restart nginx
+    sudo: True
+    service:
+      name: nginx
+      state: restarted
