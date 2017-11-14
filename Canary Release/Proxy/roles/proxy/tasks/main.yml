@@ -1,6 +1,5 @@
 ---
-- hosts: node0
-  tasks:
+
   - name: get nginx
     sudo: True
     apt:

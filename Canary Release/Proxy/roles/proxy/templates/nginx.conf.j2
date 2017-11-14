@@ -22,12 +22,12 @@ http {
 
 	 ## node.js
     upstream app_nodejs {
-       server ec2-54-145-165-113.compute-1.amazonaws.com;
-       server ec2-34-207-65-237.compute-1.amazonaws.com;
+       server 192.168.33.101;
+       server 192.168.33.102;
     }
 
     #gzip  on;
 
-	 ## Servers
-	 include /etc/nginx/sites-available/*;
+	## Servers
+	include /etc/nginx/sites-available/*;
 }
