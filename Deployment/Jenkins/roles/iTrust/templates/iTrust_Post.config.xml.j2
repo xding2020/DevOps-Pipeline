@@ -28,15 +28,21 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>mkdir -p $WORKSPACE/Deployment/iTrustPostBuild/keys
-cp $WORKSPACE/../aws.pem $WORKSPACE/Deployment/iTrustPostBuild/keys/aws.pem
-chmod 400 $WORKSPACE/Deployment/iTrustPostBuild/keys/aws.pem
-cp $WORKSPACE/../inventory_itrust $WORKSPACE/Deployment/iTrustPostBuild/inventory
-cd $WORKSPACE/Deployment/iTrustPostBuild
-ansible-playbook get_instance.yml
-sleep 10
-ansible-playbook playbook.yml -i inventory
-sleep 5
+      <command>cd $WORKSPACE/Deployment/iTrustPostBuild
+if [ ! -f "keys/aws.pem" ];
+then
+  mkdir keys
+  cp $WORKSPACE/../aws.pem keys/aws.pem
+  chmod 400 keys/aws.pem
+fi
+if [ ! -f "inventory" ];
+then
+  cp $WORKSPACE/../inventory_itrust $WORKSPACE/Deployment/iTrustPostBuild/inventory
+  ansible-playbook get_instance.yml
+  sleep 10
+  ansible-playbook playbook.yml -i inventory
+  sleep 5
+fi
 ansible-playbook deploy.yml -i inventory</command>
     </hudson.tasks.Shell>
   </builders>

@@ -5,37 +5,37 @@
   tasks:    
     - name: Provision of instance
       ec2:      
-         aws_access_key: "AKIAJ7WKAPRDWPBR5PLQ"
+        aws_access_key: "AKIAJ7WKAPRDWPBR5PLQ"
         #aws_secret_key: {{ lookup('env', 'SK') }}
-         aws_secret_key: "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"
-         key_name: damon-personal
-         instance_type: t2.micro
-         image: ami-da05a4a0
-         wait: yes
-         wait_timeout: 600
-         group_id: sg-f7dca788
-         assign_public_ip: yes
-         vpc_subnet_id: subnet-f5a5bad8
-         region: us-east-1
-         exact_count: 1
-         count_tag:
-            Name: itrust_pro
-         instance_tags:
-            Name: itrust_pro
+        aws_secret_key: "OZAAtBhVXvBrV7a/Zd+rKh7KK4GSVOgHJX9VMsf6"
+        key_name: damon-personal
+        instance_type: t2.micro
+        image: ami-da05a4a0
+        wait: yes
+        wait_timeout: 600
+        group_id: sg-f7dca788
+        assign_public_ip: yes
+        vpc_subnet_id: subnet-f5a5bad8
+        region: us-east-1
+        exact_count: 1
+        count_tag:
+          Name: itrust_pro
+        instance_tags:
+          Name: itrust_pro
       register: ec
    
     - name: remotely logging in using SSH
       add_host:
-       hostname: "{{ec.instances[0].public_ip}}" 
-       groupname: ec2_instance
-       ansible_ssh_user: ubuntu
-       ansible_ssh_private_key_file: .key/key.pem
+        hostname: "{{ec.instances[0].public_ip}}" 
+        groupname: ec2_instance
+        ansible_ssh_user: ubuntu
+        ansible_ssh_private_key_file: ./keys/key.pem
 
     - name: wait for the instance to start
       wait_for:
-       host: "{{ec.instances[0].public_ip}}"
-       port: 22
-       state: started
+        host: "{{ec.instances[0].public_ip}}"
+        port: 22
+        state: started
 
     - name: print to file
       lineinfile:

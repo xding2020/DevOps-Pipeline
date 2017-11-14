@@ -41,7 +41,7 @@ cp $WORKSPACE/iTrust/target/iTrust-23.0.0.war $WORKSPACE/../iTrust.war</command>
   </builders>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>iTrust-Post-Build</childProjects>
+      <childProjects>iTrust-Rolling-Update</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

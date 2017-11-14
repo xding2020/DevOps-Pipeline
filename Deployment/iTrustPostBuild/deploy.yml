@@ -6,10 +6,9 @@
 
   tasks:
   - name: Stop Tomcat
-    service: 
+    systemd: 
       name: tomcat
       state: stopped
-      enable: yes
 
   # - name: Decommisioning iTrust application on this server
   #   pause:
