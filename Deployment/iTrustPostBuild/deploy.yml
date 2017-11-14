@@ -10,36 +10,17 @@
       name: tomcat
       state: stopped
 
-  - name: Remove old deploy dir
-    raw: rm -rf /usr/share/tomcat/webapps/iTrust
+  - name: Remove old war package
+    file:
+      state: absent
+      path: /usr/share/tomcat/webapps/iTrust.war
   
-  - name: Create deploy directory
-    file: 
-      path: /usr/share/tomcat/webapps/iTrust
-      state: directory
-      owner: tomcat
-      group: tomcat
-      mode: 0755
-
   - name: Copy war package to remote directory
     copy: 
       src: /var/lib/jenkins/workspace/iTrust.war
-      dest: /usr/share/tomcat/webapps/iTrust/iTrust.war
+      dest: /usr/share/tomcat/webapps/iTrust.war
       group: tomcat
       owner: tomcat
-
-  - name: Unzip war package
-    shell: unzip -q iTrust.war
-    args:
-      chdir: /usr/share/tomcat/webapps/iTrust
-
-  - name: Change ownership of iTrust
-    file: 
-      path: /usr/share/tomcat/webapps/iTrust
-      owner: tomcat
-      group: tomcat
-      state: directory
-      recurse: yes
 
   - name: Start Tomcat
     systemd: 
@@ -49,4 +30,8 @@
   - name: Wait for tomcat to start
     wait_for: 
       port: 8080
+
+  - name: Pause for 10 seconds
+    pause:
+      seconds: 10
   
