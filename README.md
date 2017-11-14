@@ -4,8 +4,8 @@
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust Deployment & Rolling Update |
 | Kai Lu(klu2)           |  |
-| Xiangqing Ding(xding3) |  |
-| Fuxing Luan(fluan)     |  |
+| Xiangqing Ding(xding3) | Feature Flag |
+| Fuxing Luan(fluan)     | Testing and Report |
 
 ## Overview ##
 
@@ -21,9 +21,9 @@ After the script finished executing, Jenkins will be installed and two jobs *iTr
 ### Nomad Cluster ###
 
 ### Feature Flag ###
-To achieve this part, a Redis server is set up in the master server using Ansible (Script). And Redis client is embedded in the checkBox.io application (Code). As a result, every checkBox.io instance will contain one Redis clients, and all clients are connected with the same server. 
+To achieve this part, a Redis server is set up in the master node using Ansible ([Scripts](https://github.ncsu.edu/dding3/DevOps/tree/M3/Feature%20Flag/Redis%20Server)). And Redis client is embedded in the checkBox.io application ([Code](https://github.com/DinMouMou/checkbox.io/blob/master/server-side/site/server.js)). As a result, every checkBox.io instance will contain one Redis client, and all clients are connected with the same server. 
 
-To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master server. Another way of setting feature flag is running setFlag.js locally (`node setFlag.js`). This file contain a Redis client connecting to the same server.
+To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master node. Another way of setting feature flag is running setFlag.js locally (`node setFlag.js`). This file contain a Redis client connecting to the same server.
 
 
 ## Canary Release ##
