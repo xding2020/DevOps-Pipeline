@@ -28,11 +28,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>mkdir -p $WORKSPACE/DevOps/Build/iTrustPostBuild/keys
-cp $WORKSPACE/../aws.pem $WORKSPACE/DevOps/Build/iTrustPostBuild/keys/aws.pem
-chmod 400 $WORKSPACE/DevOps/Build/iTrustPostBuild/keys/aws.pem
-cp $WORKSPACE/../inventory_itrust $WORKSPACE/DevOps/Build/iTrustPostBuild/inventory
-cd $WORKSPACE/DevOps/Build/iTrustPostBuild
+      <command>mkdir -p $WORKSPACE/DevOps/Deployment/iTrustPostBuild/keys
+cp $WORKSPACE/../aws.pem $WORKSPACE/DevOps/Deployment/iTrustPostBuild/keys/aws.pem
+chmod 400 $WORKSPACE/DevOps/Deployment/iTrustPostBuild/keys/aws.pem
+cp $WORKSPACE/../inventory_itrust $WORKSPACE/DevOps/Deployment/iTrustPostBuild/inventory
+cd $WORKSPACE/DevOps/Deployment/iTrustPostBuild
 ansible-playbook create_ec2_instance.yml
 ansible-playbook playbook.yml -i inventory</command>
     </hudson.tasks.Shell>
