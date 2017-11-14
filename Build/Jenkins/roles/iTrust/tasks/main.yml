@@ -31,17 +31,33 @@
           }
         }'"
 
+  # - name: Setup iTrust build job
+  #   jenkins_job:
+  #     name: iTrust
+  #     state: present
+  #     config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}"
+
   - name: Setup iTrust build job
     jenkins_job:
-      name: iTrust
+      name: iTrust-Deployment
       state: present
-      config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}"
+      config: "{{ lookup('template', 'templates/iTrust_deployment.config.xml.j2') }}" 
+      
+  # - name: Create github hook
+  #   github_hooks:
+  #     action: create
+  #     hookurl: "http://{{ item }}:8080/github-webhook/"
+  #     user: '{{ gituser }}'
+  #     oauthkey: '{{ oauthkey }}'
+  #     repo: https://api.github.com/repos/dding3/iTrust
+  #   with_item:
+  #     - 52.91.101.40
 
-  - name: Setup iTrust Fuzzer build job
-    jenkins_job:
-      name: iTrust-Fuzzer
-      state: present
-      config: "{{ lookup('template', 'templates/iTrust_Fuzzer.config.xml.j2') }}"
+  # - name: Setup iTrust Fuzzer build job
+  #   jenkins_job:
+  #     name: iTrust-Fuzzer
+  #     state: present
+  #     config: "{{ lookup('template', 'templates/iTrust_Fuzzer.config.xml.j2') }}"
 
   - name: Creates directory
     file: 

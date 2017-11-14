@@ -109,6 +109,7 @@
         - git-client
         - git
         - jacoco
+        - github-pullrequest
     tags: jenkins-plugin
 
   # Restart Jenkins again otherwise plugin won't take effect
