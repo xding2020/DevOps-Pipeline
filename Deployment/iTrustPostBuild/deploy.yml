@@ -33,7 +33,7 @@
   - name: Copy war package to remote directory
     copy: 
       src: /var/lib/jenkins/workspace/iTrust.war
-      dest: /usr/share/tomcat/webapps/iTrust/iTrust.war
+      dest: /usr/share/tomcat/webapps/iTrust.war
 
   # - name: Unzip war package
   #   shell: unzip -q iTrust.war
