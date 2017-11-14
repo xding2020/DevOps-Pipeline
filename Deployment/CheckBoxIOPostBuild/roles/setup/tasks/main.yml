@@ -25,20 +25,59 @@
         - unzip
         - python-pip
         - nodejs-legacy
+
+  - name: Install the latest pymongo package
+    pip: name=pymongo state=latest use_mirrors=no
+
+  - name: Start MongoDB 
+    service: name=mongod state=restarted
+  
+  - name: Add Mongo User
+    mongodb_user:
+      database: admin
+      name: "mongo"
+      password: "mongo"
+      roles: userAdminAnyDatabase
+      state: present
+
   - name: Install python packages
     pip:
       name: pymongo
-  # - name: Start MongoDB 
-  #   service: name=mongod state=restarted
+      state: present
 
-  - name: Download the file and untar
-    unarchive:
-      src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
-      dest: /tmp/
-      remote_src: yes
+ 
+  # - name: Download the file and untar
+  #  unarchive:
+  #    src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
+  #    dest: /tmp/
+  #    remote_src: yes
   
-  - name: Copy static resources to target
-    shell: cp -r /tmp/checkbox.io-master/public_html/* /usr/share/nginx/html
+  #- name: Copy static resources to target
+  #  shell: cp -r /tmp/checkbox.io-master/public_html/* /usr/share/nginx/html
+
+  - name: Clone Checkbox.io to local
+    git: 
+      repo: https://github.com/DinMouMou/checkbox.io
+      dest: /tmp/checkbox.io/
+      force: yes
+      update: yes
+
+  - name: Configure Nginx
+    copy: 
+      dest: /etc/nginx/
+      src: /tmp/checkbox.io/local-conf/nginx.conf
+      remote_src: yes
+
+  - name: Set Nginx default
+    copy: 
+      dest: /etc/nginx/sites-available/
+      src: /tmp/checkbox.io/local-conf/default
+      remote_src: yes 
+
+  - name: Restart Nginx
+    service:
+      name: nginx
+      state: restarted
 
   # - name: Create mongoDB user 
   #   mongodb_user:
@@ -47,26 +86,33 @@
   #     password: 12345
   #     state: present
 
-  - name: Create Environmental Variables
-    lineinfile:
-      path: /etc/environment
-      line: '{{item}}'
-    with_items:
-      - MONGO_IP=127.0.0.1
-      - MONGO_PORT=27017
-      - MONGO_USER=admin
-      - MONGO_PASSWORD=12345
-      - MAIL_USER=bob
-      - MAIL_PASSWORD=666
-      - MAIL_SMTP=smtp.ncsu.edu
+  # - name: Create Environmental Variables
+  #   lineinfile:
+  #     path: /etc/environment
+  #     line: '{{item}}'
+  #   with_items:
+  #     - MONGO_IP=127.0.0.1
+  #     - MONGO_PORT=3002
+  #     - MONGO_USER=mongo
+  #     - MONGO_PASSWORD=mongo
+  #     - MAIL_USER=bob
+  #     - MAIL_PASSWORD=666
+  #     - MAIL_SMTP=smtp.ncsu.edu
+
+  
 
   - name: Run npm install
     shell: npm install
     args:
-      chdir: /tmp/checkbox.io-master/server-side/site
+      chdir: /tmp/checkbox.io/server-side/site
 
   - name: Run node server
-    shell: node server.js >/dev/null 2>&1 &
-    async: 10
+    environment:
+        MONGO_PORT: 3002  
+        MONGO_IP: localhost  
+        MONGO_USER: "mongo"  
+        MONGO_PASSWORD: "mongo"
+    shell: node server.js
+    async: 10000000
     args:
-      chdir: /tmp/checkbox.io-master/server-side/site
+      chdir: /tmp/checkbox.io/server-side/site

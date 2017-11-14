@@ -13,7 +13,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
+        <name>*/M3</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -28,11 +28,12 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>mkdir -p $WORKSPACE/CM/iTrustPostBuild/keys
-cp $WORKSPACE/../aws.pem $WORKSPACE/CM/iTrustPostBuild/keys/aws.pem
-chmod 400 $WORKSPACE/CM/iTrustPostBuild/keys/aws.pem
-cp $WORKSPACE/../inventory_itrust $WORKSPACE/CM/iTrustPostBuild/inventory
-cd $WORKSPACE/CM/iTrustPostBuild
+      <command>mkdir -p $WORKSPACE/DevOps/Deployment/iTrustPostBuild/keys
+cp $WORKSPACE/../aws.pem $WORKSPACE/DevOps/Deployment/iTrustPostBuild/keys/aws.pem
+chmod 400 $WORKSPACE/DevOps/Deployment/iTrustPostBuild/keys/aws.pem
+cp $WORKSPACE/../inventory_itrust $WORKSPACE/DevOps/Deployment/iTrustPostBuild/inventory
+cd $WORKSPACE/DevOps/Deployment/iTrustPostBuild
+ansible-playbook create_ec2_instance.yml
 ansible-playbook playbook.yml -i inventory</command>
     </hudson.tasks.Shell>
   </builders>
