@@ -34,21 +34,30 @@
     copy: 
       src: /var/lib/jenkins/workspace/iTrust.war
       dest: /usr/share/tomcat/webapps/iTrust.war
+      group: tomcat
+      owner: tomcat
 
-  # - name: Unzip war package
-  #   shell: unzip -q iTrust.war
-  #   args:
-  #     chdir: /usr/share/tomcat/webapps/iTrust
+  - name: Unzip war package
+    shell: unzip -q iTrust.war
+    args:
+      chdir: /usr/share/tomcat/webapps
 
-  # - name: Change ownership of iTrust
-  #   file: 
-  #     path: /usr/share/tomcat/webapps/iTrust
-  #     owner: tomcat
-  #     group: tomcat
-  #     state: directory
-  #     recurse: yes
+  - name: Change ownership of iTrust
+    file: 
+      path: /usr/share/tomcat/webapps/iTrust
+      owner: tomcat
+      group: tomcat
+      state: directory
+      recurse: yes
 
-  - name: Restart Tomcat
-    service: 
+  - name: Start Tomcat
+    systemd: 
       name: tomcat 
-      state: restarted
+      state: started
+
+  - name: Wait for tomcat to start
+    wait_for: 
+      port: 8080
+  
+
+  
