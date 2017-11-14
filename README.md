@@ -14,7 +14,7 @@
 ### Steps for iTrust deployment: 
 1. Navigate to [Jenkins Playbook](Deployment/Jenkins) directory and Run: `ansible-playbook playbook.yml -i inventory`  
 After the script finished executing, Jenkins will be installed and two jobs *iTrust-Deployment* and *iTrust-Rolling-Update* will be configured. The iTrust-Deployment will be configured with the github hook.
-2. Whenever you push changes to **production** branch of the iTrust project, the *iTrust-Deployment* will start building. After it's done, *iTrust-Rolling-Update* job will start to build automatically and this job will do all the provisioning and configuring jobs for production servers using the rolling update policy.
+2. Whenever you push changes to **production** branch of the [iTrust](https://github.ncsu.edu/dding3/iTrust-v23) project, the *iTrust-Deployment* will start building. After it's done, *iTrust-Rolling-Update* job will start to build automatically and this job will do all the provisioning and configuring if it's the first time the job is running, otherwise it will only update the production servers using the rolling update policy.
 
 ## Infrastructure Upgrade ##
 
