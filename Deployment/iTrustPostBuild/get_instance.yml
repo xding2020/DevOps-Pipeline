@@ -6,9 +6,7 @@
     - name: Provision of instance
       ec2:      
         aws_access_key: {{ lookup('env', 'ACCESS_KEY') }}
-        aws_access_key: "AKIAJ7WKAPRDWPBR5PLQ"
         aws_secret_key: {{ lookup('env', 'SECRET_KEY') }}
-        aws_secret_key: "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"
         key_name: damon-personal
         instance_type: t2.micro
         image: ami-da05a4a0
