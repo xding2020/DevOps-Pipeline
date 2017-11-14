@@ -44,6 +44,6 @@ checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github
 
 | Task                 | Link to Screencast |
 | :---                   | :---         |
-| iTrust Deployment      |  |
-| iTrust Rolling Update           |  |
+| Jenkins setup & Auto provisioning & iTrust Deployment      | [Screencast](https://youtu.be/yWBvSd69BpU)  |
+| iTrust Rolling Update           | [Screencast](https://youtu.be/Kp_WuSoyhBw) |
 
