@@ -4,8 +4,8 @@
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust Deployment & Rolling Update |
 | Kai Lu(klu2)           |  |
-| Xiangqing Ding(xding3) |  |
-| Fuxing Luan(fluan)     |  |
+| Xiangqing Ding(xding3) | Feature Flag |
+| Fuxing Luan(fluan)     | Testing and Report |
 
 ## Overview ##
 
