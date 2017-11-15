@@ -1,6 +1,7 @@
 ---
 - hosts: all
-  gather_facts: no
+  gather_facts: yes
   
   roles:
-    - { name: setup, become: yes, become_method: sudo }
+    # - { name: setup, become: yes, become_method: sudo }
+    - {name: nomad, become: yes, become_method: sudo}

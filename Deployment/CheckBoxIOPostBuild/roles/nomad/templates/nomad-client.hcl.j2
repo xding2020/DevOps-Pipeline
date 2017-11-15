@@ -1,0 +1,19 @@
+# Increase log verbosity
+log_level = "DEBUG"
+
+# Setup data dir
+data_dir = "/tmp/client1"
+
+region = "global"
+datacenter = "dc1"
+
+# Enable the client
+client {
+    enabled = true
+    servers = ["{{ nomad_leader_ip }}:4647"]
+}
+
+# Modify our port to avoid a collision with server1
+ports {
+    http = 5656
+}

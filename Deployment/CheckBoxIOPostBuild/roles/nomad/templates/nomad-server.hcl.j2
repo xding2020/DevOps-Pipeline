@@ -1,0 +1,26 @@
+# Increase log verbosity
+log_level = "INFO"
+
+# Bind to all interfaces
+bind_addr = "0.0.0.0"
+
+# Setup data dir
+data_dir = "/tmp/server"
+
+# Change the region to the proper aws region
+region = "global"
+datacenter = "dc1"
+
+# Enable the server
+server {
+    enabled = true
+    bootstrap_expect = 1
+}
+
+advertise {
+    # make sure to replace the IP with the proper id
+    # for this instance!
+    http = "{{ ansible_default_ipv4.address }}:4646"
+    rpc = "{{ ansible_default_ipv4.address }}:4647"
+    serf = "{{ ansible_default_ipv4.address }}:4648"
+}
