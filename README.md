@@ -3,7 +3,7 @@
 | Member                 | Contribution |
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust Deployment & Rolling Update |
-| Kai Lu(klu2)           |  |
+| Kai Lu(klu2)           | Nomad Cluster |
 | Xiangqing Ding(xding3) | Feature Flag |
 | Fuxing Luan(fluan)     | Testing and Report |
 
@@ -19,6 +19,7 @@ After the script finished executing, Jenkins will be installed and two jobs *iTr
 ## Infrastructure Upgrade ##
 
 ### Nomad Cluster ###
+This part we deployed a nomad cluster with three nodes, including one serves as both server and client and the rest serve as clients. Then we started the checkboxIO job on this cluster. After that, we will shutdown the client node which is running the job and reveal that the service would be moved to another node.
 
 ### Feature Flag ###
 To achieve this part, a Redis server is set up in the master node using Ansible ([Scripts](https://github.ncsu.edu/dding3/DevOps/tree/M3/Feature%20Flag/Redis%20Server)). And Redis client is embedded in the checkBox.io application ([Code](https://github.com/DinMouMou/checkbox.io/blob/master/server-side/site/server.js)). As a result, every checkBox.io instance will contain one Redis client, and all clients are connected with the same server. 
