@@ -10,7 +10,9 @@ datacenter = "dc1"
 # Enable the client
 client {
     enabled = true
-    servers = ["{{ nomad_leader_ip }}:4647"]
+    servers = [
+        "{{nomad_leader_ip}}:4647"
+    ]
 }
 
 # Modify our port to avoid a collision with server1

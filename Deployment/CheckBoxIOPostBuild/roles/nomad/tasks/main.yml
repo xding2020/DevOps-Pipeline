@@ -1,5 +1,11 @@
 ---
 
+
+- name: Set the Nomad Leader Server IP
+  set_fact:
+    nomad_leader_ip: '{{ ansible_default_ipv4.address }}'
+  run_once: true
+
 - name: Install necessary dependencies
   apt: 
     name: "{{ item }}"
@@ -7,6 +13,12 @@
     update_cache: true
   with_items:
     - unzip
+    - docker.io
+
+- name: Make sure docker is running
+  service:
+    state: restarted
+    name: docker
 
 - name: Create Nomad Config Directory
   file: path=/etc/nomad state=directory
@@ -34,6 +46,16 @@
     daemon_reload: yes
     name: consul
 
+- name: Check if Service Exists
+  stat: path=/etc/systemd/system/nomad-server.service
+  register: service_status
+
+- name: Stop Service
+  service: name=nomad-server state=stopped
+  when: service_status.stat.exists
+  register: service_stopped
+  
+
 - name: Add Nomad Server Config
   template:
     src: nomad-server.hcl.j2
@@ -43,20 +65,17 @@
   template:
     src: nomad-server.service.j2
     dest: /etc/systemd/system/nomad-server.service
+  run_once: true
 
 - name: Make Sure Nomad Server is Running
   systemd:
     state: restarted
     daemon_reload: yes
     name: nomad-server
-
-- name: Set the Nomad Leader Server IP
-  set_fact:
-    nomad_leader_ip: '{{ ansible_default_ipv4.address }}'
   run_once: true
 
-- name: Join servers 
-  command: 'nomad server-join {{ nomad_leader_ip }}'
+# - name: Join servers 
+#   command: 'nomad server-join {{ nomad_leader_ip }}'
 
 - name: Add Nomad Client Config
   template:
