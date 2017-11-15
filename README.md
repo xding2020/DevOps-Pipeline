@@ -24,11 +24,19 @@ This part we deployed a nomad cluster with three nodes, including one serves as 
 ### Feature Flag ###
 To achieve this part, a Redis server is set up in the master node using Ansible ([Scripts](https://github.ncsu.edu/dding3/DevOps/tree/M3/Feature%20Flag/Redis%20Server)). And Redis client is embedded in the checkBox.io application ([Code](https://github.com/DinMouMou/checkbox.io/blob/master/server-side/site/server.js)). As a result, every checkBox.io instance will contain one Redis client, and all clients are connected with the same server. 
 
-To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master node. Another way of setting feature flag is running setFlag.js locally (`node setFlag.js`). This file contain a Redis client connecting to the same server.
+To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master node. 
 
 
 ## Canary Release ##
-The proxy is built based on Nginx server, which is installed and configured in the master server.
+The proxy is built based on Nginx, which is installed and configured in the master node. The database shared by different instances is also deployed in the master node. To control the routing, each node is assigned with a weight. In the following setting, 30% of the traffic is routed to the staged server (192.168.33.101), the other traffic (70%) is routed to the stable server.
+
+    upstream app_nodejs {
+		server 192.168.33.101 weight=3;
+		server 192.168.33.102 weight=7;
+    }
+
+
+We defined **alert** as response status code not in 200-399. When alert is raised, 
 
 ## Rolling Update ##
 Now that we have 5 production hosts, the deployment script will decomission only one of the hosts at a time and do the update while the rest 4 remain unchanged and  operational.
@@ -47,4 +55,7 @@ checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github
 | :---                   | :---         |
 | Jenkins setup & Auto provisioning & iTrust Deployment      | [Screencast](https://youtu.be/yWBvSd69BpU)  |
 | iTrust Rolling Update           | [Screencast](https://youtu.be/Kp_WuSoyhBw) |
+| Nomad Cluster           |  |
+| Feature Flag |  |
+| Canary Release | |
 
