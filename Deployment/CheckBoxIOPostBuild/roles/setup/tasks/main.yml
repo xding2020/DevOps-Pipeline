@@ -109,7 +109,7 @@
   - name: Run node server
     environment:
         MONGO_PORT: 3002  
-        MONGO_IP: localhost  
+        MONGO_IP: 192.168.33.100 
         MONGO_USER: "mongo"  
         MONGO_PASSWORD: "mongo"
     shell: node server.js
