@@ -27,7 +27,7 @@ To achieve this part, a Redis server is set up in the master node using Ansible 
 To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master node. 
 
 ## Canary Release ##
-The load balancer is built based on Nginx, which is installed and configured ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/proxy)) in the master node. The MongoDB database shared all instances is also deployed in the master node is also set up in this step ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/mongodb)). 
+The load balancer is built based on Nginx, which is installed and configured ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/proxy)) in the master node. The MongoDB database shared among all instances is also deployed in the master node is also set up in this step ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/mongodb)). 
 
 To control the routing, each node is assigned with a weight. In the following setting, 30% of the traffic is routed to the staged server (192.168.33.101), the other traffic (70%) is routed to the stable server. 
 
@@ -41,7 +41,7 @@ And when alert is raised, such as that server is not unavailable, Nginx will tem
 Assumption: servers are set listening port 3002
 
 ## Rolling Update ##
-Now that we have 5 production hosts, the deployment script will decommission only one of the hosts at a time and do the update while the rest 4 remain unchanged and operational.
+Now that we have 5 production hosts, the deployment script will deploy only one of the hosts at a time and do the update while the rest 4 remain unchanged and operational.
 
 The ansible script for the rolling update policy is [deploy.yml](Deployment/iTrustPostBuild/deploy.yml)
 
