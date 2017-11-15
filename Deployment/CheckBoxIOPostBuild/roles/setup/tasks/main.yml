@@ -45,7 +45,11 @@
       name: pymongo
       state: present
 
- 
+  - name: Install Forever
+    npm:
+      name: forever
+      global: yes      
+
   # - name: Download the file and untar
   #  unarchive:
   #    src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
@@ -112,7 +116,7 @@
         MONGO_IP: 192.168.33.100 
         MONGO_USER: "mongo"  
         MONGO_PASSWORD: "mongo"
-    shell: node server.js
-    async: 10000000
+    command: forever start server.js
+    # async: 10000000
     args:
       chdir: /tmp/checkbox.io/server-side/site
