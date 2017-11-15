@@ -30,9 +30,7 @@
     pip: name=pymongo state=latest use_mirrors=no
 
   - name: Start MongoDB 
-    service: 
-      name: mongod 
-      state: restarted
+    service: name=mongod state=restarted
   
   - name: Add Mongo User
     mongodb_user:
@@ -46,12 +44,7 @@
     pip:
       name: pymongo
       state: present
-
-  - name: Install Forever
-    npm:
-      name: forever
-      global: yes      
-
+ 
   # - name: Download the file and untar
   #  unarchive:
   #    src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
@@ -68,57 +61,5 @@
       force: yes
       update: yes
 
-  - name: Configure Nginx
-    copy: 
-      dest: /etc/nginx/
-      src: /tmp/checkbox.io/local-conf/nginx.conf
-      remote_src: yes
 
-  - name: Set Nginx default
-    copy: 
-      dest: /etc/nginx/sites-available/
-      src: /tmp/checkbox.io/local-conf/default
-      remote_src: yes 
 
-  - name: Restart Nginx
-    service:
-      name: nginx
-      state: restarted
-
-  # - name: Create mongoDB user 
-  #   mongodb_user:
-  #     database: burgers
-  #     name: admin
-  #     password: 12345
-  #     state: present
-
-  # - name: Create Environmental Variables
-  #   lineinfile:
-  #     path: /etc/environment
-  #     line: '{{item}}'
-  #   with_items:
-  #     - MONGO_IP=127.0.0.1
-  #     - MONGO_PORT=3002
-  #     - MONGO_USER=mongo
-  #     - MONGO_PASSWORD=mongo
-  #     - MAIL_USER=bob
-  #     - MAIL_PASSWORD=666
-  #     - MAIL_SMTP=smtp.ncsu.edu
-
-  
-
-  - name: Run npm install
-    shell: npm install
-    args:
-      chdir: /tmp/checkbox.io/server-side/site
-
-  - name: Run node server
-    environment:
-        MONGO_PORT: 3002  
-        MONGO_IP: 192.168.33.100 
-        MONGO_USER: "mongo"  
-        MONGO_PASSWORD: "mongo"
-    command: forever start server.js
-    # async: 10000000
-    args:
-      chdir: /tmp/checkbox.io/server-side/site
