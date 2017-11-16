@@ -19,7 +19,7 @@ After the script finished executing, Jenkins will be installed and two jobs *iTr
 ## Infrastructure Upgrade ##
 
 ### Nomad Cluster ###
-This part we deployed a nomad cluster with three nodes, including one serves as both server and client and the rest serve as clients. Then we started the checkboxIO job on this cluster. After that, we will shutdown the client node which is running the job and reveal that the service would be moved to another node.
+This part we deployed a nomad cluster with three nodes, including one serves as both server and client and the rest serve as clients. Then we started the checkboxIO job on this cluster. After that, we will shutdown the client node which is running the job and reveal that the service would be moved to another node. The code for nomad ([Setup Scripts](https://github.ncsu.edu/dding3/DevOps/blob/M3/Deployment/CheckBoxIOPostBuild/playbook.yml))
 
 ### Feature Flag ###
 To achieve this part, a Redis server is set up in the master node using Ansible ([Setup Scripts](https://github.ncsu.edu/dding3/DevOps/tree/M3/Feature%20Flag/Redis%20Server)). And Redis client is embedded in the checkBox.io application ([Source Code](https://github.com/DinMouMou/checkbox.io/blob/master/server-side/site/server.js)). As a result, every checkBox.io instance will contain one Redis client, and all clients are connected with the same server. 
@@ -57,7 +57,7 @@ checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github
 | :---                   | :---         |
 | Jenkins setup & Auto provisioning & iTrust Deployment      | [Screencast](https://youtu.be/yWBvSd69BpU)  |
 | iTrust Rolling Update           | [Screencast](https://youtu.be/Kp_WuSoyhBw) |
-| Nomad Cluster           |  |
+| Nomad Cluster           | [Screencast](https://youtu.be/UnxmOhpWnb0) |
 | Feature Flag |  |
 | Canary Release | |
 
