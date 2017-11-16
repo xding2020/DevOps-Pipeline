@@ -106,13 +106,13 @@
     args:
       chdir: /tmp/checkbox.io/server-side/site
 
-  - name: Run node server
-    environment:
-        MONGO_PORT: 3002  
-        MONGO_IP: localhost  
-        MONGO_USER: "mongo"  
-        MONGO_PASSWORD: "mongo"
-    shell: node server.js
-    async: 10000000
-    args:
-      chdir: /tmp/checkbox.io/server-side/site
+  # - name: Run node server
+  #   environment:
+  #       MONGO_PORT: 3002  
+  #       MONGO_IP: localhost  
+  #       MONGO_USER: "mongo"  
+  #       MONGO_PASSWORD: "mongo"
+  #   shell: node server.js
+  #   async: 10000000
+  #   args:
+  #     chdir: /tmp/checkbox.io/server-side/site
