@@ -26,24 +26,24 @@
         - python-pip
         - nodejs-legacy
 
-  - name: Install the latest pymongo package
-    pip: name=pymongo state=latest use_mirrors=no
+  # - name: Install the latest pymongo package
+  #   pip: name=pymongo state=latest use_mirrors=no
 
-  - name: Start MongoDB 
-    service: name=mongod state=restarted
+  # - name: Start MongoDB 
+  #   service: name=mongod state=restarted
   
-  - name: Add Mongo User
-    mongodb_user:
-      database: admin
-      name: "mongo"
-      password: "mongo"
-      roles: userAdminAnyDatabase
-      state: present
+  # - name: Add Mongo User
+  #   mongodb_user:
+  #     database: admin
+  #     name: "mongo"
+  #     password: "mongo"
+  #     roles: userAdminAnyDatabase
+  #     state: present
 
-  - name: Install python packages
-    pip:
-      name: pymongo
-      state: present
+  # - name: Install python packages
+  #   pip:
+  #     name: pymongo
+  #     state: present
 
  
   # - name: Download the file and untar
