@@ -29,8 +29,12 @@
   # - name: Install the latest pymongo package
   #   pip: name=pymongo state=latest use_mirrors=no
 
-  # - name: Start MongoDB 
-  #   service: name=mongod state=restarted
+
+  - name: Start MongoDB 
+    service: 
+      name: mongod 
+      state: restarted
+
   
   # - name: Add Mongo User
   #   mongodb_user:
@@ -45,7 +49,11 @@
   #     name: pymongo
   #     state: present
 
- 
+  - name: Install Forever
+    npm:
+      name: forever
+      global: yes      
+
   # - name: Download the file and untar
   #  unarchive:
   #    src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
@@ -116,3 +124,4 @@
   #   async: 10000000
   #   args:
   #     chdir: /tmp/checkbox.io/server-side/site
+

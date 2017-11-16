@@ -20,14 +20,10 @@ http {
 
     client_max_body_size 20m;
 
-	 ## node.js
     upstream app_nodejs {
-       server 192.168.33.101;
-       server 192.168.33.102;
+		server 192.168.33.101:3002 weight=3 max_fails=1 fail_timeout=300s;
+		server 192.168.33.102:3002 weight=7 max_fails=1 fail_timeout=300s;
     }
 
-    #gzip  on;
-
-	## Servers
 	include /etc/nginx/sites-available/*;
 }
