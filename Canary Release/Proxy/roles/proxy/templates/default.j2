@@ -1,6 +1,6 @@
 server {
   listen 80;
-  root /home/ubuntu/checkbox/public_html/;
+  root /tmp/checkbox.io/public_html/;
   index index.html index.htm;
 
   location / {
@@ -15,6 +15,7 @@ server {
       proxy_set_header X-NginX-Proxy true;
 
       proxy_pass http://app_nodejs;
+	  
       proxy_redirect off;
   }
 }
