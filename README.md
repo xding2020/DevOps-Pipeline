@@ -3,7 +3,7 @@
 | Member                 | Contribution |
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust Deployment & Rolling Update |
-| Kai Lu(klu2)           | Nomad Cluster |
+| Kai Lu(klu2)           | Nomad Cluster, Checkbox.io deployment |
 | Xiangqing Ding(xding3) | Feature Flag, Canary Release |
 | Fuxing Luan(fluan)     | Testing and Report |
 
@@ -27,7 +27,7 @@ To achieve this part, a Redis server is set up in the master node using Ansible 
 To turn on/off the feature flag, user could use command `redis-cli set mdFlag true/false` in master node. 
 
 ## Canary Release ##
-The load balancer is built based on Nginx, which is installed and configured ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/proxy)) in the master node. The MongoDB database shared among all instances is also deployed in the master node is also set up in this step ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/mongodb)). 
+The load balancer is built based on Nginx, which is installed and configured ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/proxy)) in the master node. The MongoDB database shared among all instances is also deployed in the master node in this step ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/mongodb)). 
 
 To control the routing, each node is assigned with a weight. In the following setting, 30% of the traffic is routed to the newly staged server (54.227.142.147), the other traffic (70%) is routed to the stable server(184.72.201.7). 
 
@@ -55,9 +55,9 @@ checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github
 
 | Task                 | Link to Screencast |
 | :---                   | :---         |
-| Jenkins setup & Auto provisioning & iTrust Deployment      | [Screencast](https://youtu.be/yWBvSd69BpU)  |
-| Checkbox.io Deployment & Nomad Cluster           | [Screencast](https://youtu.be/UnxmOhpWnb0) |
+| Jenkins setup & Auto provisioning & Deployment      | [Screencast](https://youtu.be/yWBvSd69BpU)  |
+| Nomad Cluster           | [Screencast](https://youtu.be/UnxmOhpWnb0) |
 | Feature Flag | [Screencast](https://youtu.be/9X7KtocgBSk) |
-| Canary Release | |
+| Canary Release | [Screencast](https://www.youtube.com/watch?v=919n9KvqELw&feature=youtu.be) |
 | iTrust Rolling Update           | [Screencast](https://youtu.be/Kp_WuSoyhBw) |
 
