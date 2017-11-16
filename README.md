@@ -29,13 +29,13 @@ To turn on/off the feature flag, user could use command `redis-cli set mdFlag tr
 ## Canary Release ##
 The load balancer is built based on Nginx, which is installed and configured ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/proxy)) in the master node. The MongoDB database shared among all instances is also deployed in the master node is also set up in this step ([Setup Script](https://github.ncsu.edu/dding3/DevOps/tree/M3/Canary%20Release/Proxy/roles/mongodb)). 
 
-To control the routing, each node is assigned with a weight. In the following setting, 30% of the traffic is routed to the staged server (192.168.33.101), the other traffic (70%) is routed to the stable server. 
+To control the routing, each node is assigned with a weight. In the following setting, 30% of the traffic is routed to the newly staged server (54.227.142.147), the other traffic (70%) is routed to the stable server(184.72.201.7). 
 
 And when alert is raised, such as that server is not unavailable, Nginx will temporarily stops sending requests to that server until it is considered active again. The **fail\_timeout** parameter sets the time during which the specified number of failed attempts should happen and still consider the server unavailable. The **max\_fails** parameter sets the number of failed attempts that should happen during the specified time to still consider the server unavailable.
 
     upstream app_nodejs {
-		server 192.168.33.101:3002 weight=3 max_fails=1 fail_timeout=300s;
-		server 192.168.33.102:3002 weight=7 max_fails=1 fail_timeout=300s;
+		server 54.227.142.147:3002 weight=3 max_fails=1 fail_timeout=300s;
+		server 184.72.201.7:3002 weight=7 max_fails=1 fail_timeout=300s;
     }
 
 Assumption: servers are set listening port 3002
@@ -56,8 +56,8 @@ checkBox.io Repo Used: [https://github.com/DinMouMou/checkbox.io](https://github
 | Task                 | Link to Screencast |
 | :---                   | :---         |
 | Jenkins setup & Auto provisioning & iTrust Deployment      | [Screencast](https://youtu.be/yWBvSd69BpU)  |
-| iTrust Rolling Update           | [Screencast](https://youtu.be/Kp_WuSoyhBw) |
-| Nomad Cluster           | [Screencast](https://youtu.be/UnxmOhpWnb0) |
+| Checkbox.io Deployment & Nomad Cluster           | [Screencast](https://youtu.be/UnxmOhpWnb0) |
 | Feature Flag | [Screencast](https://youtu.be/9X7KtocgBSk) |
 | Canary Release | |
+| iTrust Rolling Update           | [Screencast](https://youtu.be/Kp_WuSoyhBw) |
 

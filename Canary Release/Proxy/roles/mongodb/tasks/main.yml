@@ -29,8 +29,13 @@
   - name: Install the latest pymongo package
     pip: name=pymongo state=latest use_mirrors=no
 
+  - name: Add MongoDB service
+    template: 
+      src: mongod.service.j2
+      dest: /etc/systemd/system/mongod.service
+
   - name: Start MongoDB 
-    service: name=mongod state=restarted
+    service: name=mongod state=restarted daemon-reload=true
   
   - name: Add Mongo User
     mongodb_user:
