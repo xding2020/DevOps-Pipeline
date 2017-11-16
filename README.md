@@ -3,7 +3,7 @@
 | Member                 | Contribution |
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust Deployment & Rolling Update |
-| Kai Lu(klu2)           | Nomad Cluster, Checkbox.io deployment |
+| Kai Lu(klu2)           | Nomad Cluster, Checkbox.io Deployment |
 | Xiangqing Ding(xding3) | Feature Flag, Canary Release |
 | Fuxing Luan(fluan)     | Testing and Report |
 
@@ -11,10 +11,13 @@
 
 ## Deployment ##
 
-### Steps for iTrust deployment: 
+### Steps for iTrust deployment 
 1. Navigate to [Jenkins Playbook](Deployment/Jenkins) directory and Run: `ansible-playbook playbook.yml -i inventory`  
 After the script finished executing, Jenkins will be installed and two jobs *iTrust-Deployment* and *iTrust-Rolling-Update* will be configured. The iTrust-Deployment will be configured with the github hook.
 2. Whenever you push changes to **production** branch of the [iTrust](https://github.ncsu.edu/dding3/iTrust-v23) project, the *iTrust-Deployment* will start building. After it's done, *iTrust-Rolling-Update* job will start to build automatically and this job will do all the provisioning and configuring if it's the first time the job is running, otherwise it will only update the production servers using the rolling update policy.
+
+### Checkbox.io deployment:
+The process of Checkbox.io deployment is almost the same as deployment of iTrust. However, when Jenkins is set up, a Redis server, shared MongoDB and load balancer are set up in the same node, which is regarded as the master node. The setup scripts are put under corresponding folders which will be introduced in following section.
 
 ## Infrastructure Upgrade ##
 
