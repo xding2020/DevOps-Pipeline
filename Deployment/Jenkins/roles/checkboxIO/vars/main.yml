@@ -1,4 +1,0 @@
-cred_id: e492528e-f30f-4d40-a448-7c98c6856eea
-ssh_user: ubuntu
-server: 52.203.86.48
-private_key_path: ./keys/aws.pem
