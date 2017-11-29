@@ -1,0 +1,57 @@
+---
+
+  - name: Install build dependencies
+    apt: 
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - maven
+      - python-jenkins
+      - python-lxml
+      - python-pip
+      - unzip
+
+  - name: Install boto
+    pip:
+      name: boto
+
+  - name: Create credentials
+    raw: "curl -H $(curl -s 'http://{{ inventory_hostname }}:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)') -X POST 'http://{{ inventory_hostname }}:8080/credentials/store/system/domain/_/createCredentials' \
+         --data-urlencode 'json={
+          \"\": \"0\",
+          \"credentials\": {
+            \"scope\": \"GLOBAL\",
+            \"id\": \"{{ cred_id }}\",
+            \"username\": \"dding3\",
+            \"password\": \"1990O22&ddD\",
+            \"description\": \"\",
+            \"$class\": \"com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl\"
+          }
+        }'"
+
+  - name: Setup iTrust build job
+    jenkins_job:
+      name: iTrust-Deployment
+      state: present
+      config: "{{ lookup('template', 'templates/iTrust.config.xml.j2') }}" 
+
+  - name: Creates directory
+    file: 
+      path: "{{ deploy_path }}/deployment"
+      state: directory
+      mode: 0755
+
+  - include: install_tomcat.yml
+
+  - include: install_mysql.yml
+
+  - include: post_build.yml
+
+  - name: Create github hook
+    github_hooks:
+      action: create
+      hookurl: "http://{{ hostvars[inventory_hostname].groups.nodes[0] }}:8080/github-webhook/"
+      user: "{{ githubuser }}"
+      oauthkey: "{{ hookoauthkey }}"
+      repo: https://api.github.ncsu.edu/repos/dding3/iTrust-v23
+  

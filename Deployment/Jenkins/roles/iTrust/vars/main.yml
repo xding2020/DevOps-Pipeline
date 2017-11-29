@@ -1,0 +1,25 @@
+cred_id: e492528e-f30f-4d40-a448-7c98c6856eea
+ssh_user: ubuntu
+private_key_path: ./keys/aws.pem
+server: 52.203.86.48
+
+githubuser: dding3
+hookoauthkey: 9adb28a7fc6e1fcc8b783534c570b48516422f5a
+
+admin_username: admin
+admin_password: adminpasswd
+
+deploy_path: '/src/www'
+tomcat_path: '/usr/share/tomcat'
+tomcat_mirror: 'http://apache.claz.org/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.tar.gz'
+http_port: 8080
+https_port: 8443
+
+mysql_root_pass: ""
+mysql_port: 3306
+mysql_bind_address: "127.0.0.1"
+
+ubuntu_mysql_pkgs:
+  - mysql-server-5.6
+  - mysql-client-5.6
+  - python-mysqldb
