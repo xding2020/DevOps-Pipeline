@@ -1,0 +1,36 @@
+---
+
+  - name: Ensure python is installed in remote machine
+    raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
+
+  - name: gather facts
+    setup:
+
+  - name: Creates directory
+    file: 
+      path: "{{ deploy_path }}/deployment"
+      state: directory
+      mode: 0755
+
+  - name: Install aptitude and update the package list
+    apt: 
+      name: aptitude
+      update_cache: yes
+
+  - name: Install necessary dependencies
+    apt: 
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - default-jre
+      - default-jdk
+      - git
+      - maven
+      - unzip
+
+  - include_tasks: install_tomcat.yml
+
+  - include_tasks: install_mysql.yml
+
+  # - include_tasks: deploy.yml
+

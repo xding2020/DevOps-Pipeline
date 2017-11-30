@@ -1,0 +1,127 @@
+---
+
+  - name: Ensure python is installed in remote machine
+    raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)
+
+  - name: Install MongoDB Repository keys
+    apt_key: state=present keyserver=keyserver.ubuntu.com id=7F0CEB10
+
+  - name: Install MongoDB repository
+    apt_repository:
+        repo: 'deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse' 
+        state: present
+
+  - name: Install necessary dependencies
+    apt: 
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+    with_items:
+        - mongodb-org
+        - nginx
+        - nodejs
+        - git
+        - npm
+        - unzip
+        - python-pip
+        - nodejs-legacy
+
+  # - name: Install the latest pymongo package
+  #   pip: name=pymongo state=latest use_mirrors=no
+
+
+  - name: Start MongoDB 
+    service: 
+      name: mongod 
+      state: restarted
+
+  
+  # - name: Add Mongo User
+  #   mongodb_user:
+  #     database: admin
+  #     name: "mongo"
+  #     password: "mongo"
+  #     roles: userAdminAnyDatabase
+  #     state: present
+
+  # - name: Install python packages
+  #   pip:
+  #     name: pymongo
+  #     state: present
+
+  - name: Install Forever
+    npm:
+      name: forever
+      global: yes      
+
+  # - name: Download the file and untar
+  #  unarchive:
+  #    src: https://github.com/DinMouMou/checkbox.io/archive/master.zip
+  #    dest: /tmp/
+  #    remote_src: yes
+  
+  #- name: Copy static resources to target
+  #  shell: cp -r /tmp/checkbox.io-master/public_html/* /usr/share/nginx/html
+
+  - name: Clone Checkbox.io to local
+    git: 
+      repo: https://github.com/DinMouMou/checkbox.io
+      dest: /tmp/checkbox.io/
+      force: yes
+      update: yes
+
+  - name: Configure Nginx
+    copy: 
+      dest: /etc/nginx/
+      src: /tmp/checkbox.io/local-conf/nginx.conf
+      remote_src: yes
+
+  - name: Set Nginx default
+    copy: 
+      dest: /etc/nginx/sites-available/
+      src: /tmp/checkbox.io/local-conf/default
+      remote_src: yes 
+
+  - name: Restart Nginx
+    service:
+      name: nginx
+      state: restarted
+
+  # - name: Create mongoDB user 
+  #   mongodb_user:
+  #     database: burgers
+  #     name: admin
+  #     password: 12345
+  #     state: present
+
+  # - name: Create Environmental Variables
+  #   lineinfile:
+  #     path: /etc/environment
+  #     line: '{{item}}'
+  #   with_items:
+  #     - MONGO_IP=127.0.0.1
+  #     - MONGO_PORT=3002
+  #     - MONGO_USER=mongo
+  #     - MONGO_PASSWORD=mongo
+  #     - MAIL_USER=bob
+  #     - MAIL_PASSWORD=666
+  #     - MAIL_SMTP=smtp.ncsu.edu
+
+  
+
+  # - name: Run npm install
+  #   shell: npm install
+  #   args:
+  #     chdir: /tmp/checkbox.io/server-side/site
+
+  - name: Run node server
+    environment:
+        MONGO_PORT: 3002  
+        MONGO_IP: 34.238.253.22 
+        MONGO_USER: "mongo"  
+        MONGO_PASSWORD: "mongo"
+    shell: forever start server.js
+    # async: 10000000
+    args:
+      chdir: /tmp/checkbox.io/server-side/site
+
