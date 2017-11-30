@@ -87,4 +87,5 @@ keys/
 #.retry
 *.retry
 */*.retry
+.vscode
 
