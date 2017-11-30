@@ -15,11 +15,6 @@ numberOfTotalAcceptedConnections=$(cat $file | grep -A 1 server | tail -1 | awk 
 numberOfTotalhandledConnections=$(cat $file | grep -A 1 server | tail -1 | awk '{print $2}')
 totalRequests=$(cat $file | grep -A 1 server | tail -1 | awk '{print $3}')
     
-numberOfRequestsPerSecond=$(echo 'scale=0;'$totalRequests/$numberOfTotalAcceptedConnections/$totalNumberOfInstances | bc -l)
+numberOfRequestsPerSecond=$(echo 'scale=2;'$totalRequests/$numberOfTotalAcceptedConnections/$totalNumberOfInstances | bc -l)
 echo "$file : req/sec = $numberOfRequestsPerSecond"
 echo "$numberOfRequestsPerSecond" >> $outputFile
-
-if [ "$numberOfRequestsPerSecond" -gt "$threshold" ]
-then
-    echo "Traffic is larger than threshold"
-fi

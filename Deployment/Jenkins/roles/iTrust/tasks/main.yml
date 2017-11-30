@@ -15,6 +15,10 @@
   - name: Install boto
     pip:
       name: boto
+    with_items:
+      - boto
+      - scipy
+      - scikit-learn
 
   - name: Create credentials
     raw: "curl -H $(curl -s 'http://{{ inventory_hostname }}:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)') -X POST 'http://{{ inventory_hostname }}:8080/credentials/store/system/domain/_/createCredentials' \
