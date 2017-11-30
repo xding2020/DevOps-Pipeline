@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:    
+
+  - name: Delete inventory
+    file: 
+      path: ./inventory
+      state: absent
+
+  - name: Recreate inventory
+    file: 
+      path: ./inventory
+      state: touch
+      group: jenkins
+      owner: jenkins
+
+  - name: Write content to inventory
+    lineinfile: 
+      path: ./inventory
+      state: present
+      line: '[nodes]'
+
+  - name: print to file
+      lineinfile:
+        path: ./inventory
+        state: present
+        line: "{{ item }} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=./keys/aws.pem"
+      with_lines: cat "/var/lib/jenkins/workspace/hosts"

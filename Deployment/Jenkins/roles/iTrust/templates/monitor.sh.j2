@@ -1,0 +1,25 @@
+#!/bin/bash
+ 
+nginxPath='nginx_status'
+totalNumberOfInstances=5
+threshold=250
+URL="127.0.0.1"
+outputFile='/src/www/traffic_history'
+
+file="$URL"
+curl -s $URL/$nginxPath -o $file
+
+    
+numberOfActiveConnections=$(cat $file  | awk '/Active /' | awk '{print $3}')
+numberOfTotalAcceptedConnections=$(cat $file | grep -A 1 server | tail -1 | awk '{print $1}')
+numberOfTotalhandledConnections=$(cat $file | grep -A 1 server | tail -1 | awk '{print $2}')
+totalRequests=$(cat $file | grep -A 1 server | tail -1 | awk '{print $3}')
+    
+numberOfRequestsPerSecond=$(echo 'scale=0;'$totalRequests/$numberOfTotalAcceptedConnections/$totalNumberOfInstances | bc -l)
+echo "$file : req/sec = $numberOfRequestsPerSecond"
+echo "$numberOfRequestsPerSecond" >> $outputFile
+
+if [ "$numberOfRequestsPerSecond" -gt "$threshold" ]
+then
+    echo "Traffic is larger than threshold"
+fi

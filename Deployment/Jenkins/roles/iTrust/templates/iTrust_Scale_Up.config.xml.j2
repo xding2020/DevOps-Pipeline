@@ -35,17 +35,23 @@ then
   cp $WORKSPACE/../aws.pem keys/aws.pem
   chmod 400 keys/aws.pem
 fi
-if [ ! -f "inventory" ];
-then
-  cp $WORKSPACE/../inventory_itrust $WORKSPACE/Deployment/iTrustPostBuild/inventory
-  ansible-playbook get_instance.yml
-  sleep 10
-  ansible-playbook playbook.yml -i inventory
-  sleep 5
-fi
-ansible-playbook deploy.yml -i inventory</command>
+rm -f inventory
+cp $WORKSPACE/../inventory_itrust $WORKSPACE/Deployment/iTrustPostBuild/inventory
+ansible-playbook get_instance.yml --extra-vars "host_count=1"
+sleep 10
+ansible-playbook playbook.yml -i inventory</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>iTrust-Rolling-Update</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
   <buildWrappers/>
 </project>

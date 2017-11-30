@@ -1,0 +1,7 @@
+---
+
+  - name: Setup iTrust-Scale-Down build job
+    jenkins_job:
+      name: iTrust-Scale-Down
+      state: present
+      config: "{{ lookup('template', 'templates/iTrust_Scale_Down.config.xml.j2') }}"

@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  become: yes
+  become_method: sudo
+
+  tasks:
+
+  - name: set fact
+    set_fact: server_item="{{ item }}"
+    with_lines: cat "/var/lib/jenkins/workspace/hosts"
+    register: server_result
+
+  - name: make a list
+    set_fact: servers="{{ server_result.results | map(attribute='ansible_facts.server_item') | list }}"
+
+  - name: Configure Nginx Upstream
+    template: 
+      src: nginx_itrust.j2
+      dest: "/etc/nginx/sites-available/default"
+      group: root
+      owner: root
+
+  - name: Restart Nginx
+    service: 
+      name: nginx
+      state: restarted

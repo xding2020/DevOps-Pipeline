@@ -3,9 +3,9 @@
   gather_facts: no
 
   roles:
-    - { name: Jenkins, become: yes, become_method: sudo }
+    # - { name: Jenkins, become: yes, become_method: sudo }
     - { name: iTrust, become: yes, become_method: sudo }
-    - { name: checkboxIO, become: yes, become_method: sudo }
-    - { name: redis, become: yes, become_method: sudo }
-    - { name: proxy, become: yes, become_method: sudo }
-    - { name: mongodb, become: yes, become_method: sudo }
+    # - { name: checkboxIO, become: yes, become_method: sudo }
+    # - { name: redis, become: yes, become_method: sudo }
+    # - { name: proxy, become: yes, become_method: sudo }
+    # - { name: mongodb, become: yes, become_method: sudo }

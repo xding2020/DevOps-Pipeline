@@ -10,6 +10,7 @@
       - python-lxml
       - python-pip
       - unzip
+      - nginx
 
   - name: Install boto
     pip:
@@ -45,7 +46,26 @@
 
   - include: install_mysql.yml
 
+  - include: install_nginx.yml
+
   - include: post_build.yml
+
+  - include: scale_up.yml
+
+  - include: scale_down.yml
+
+  - name: Copy monitor shell script
+    template: 
+      src: monitor.sh.j2
+      dest: "{{ deploy_path }}/monitor.sh"
+      mode: 0755
+      group: root
+      owner: root
+
+  - name: Setup crontab job
+    cron:
+      name: "check dirs"
+      job: "/bin/sh /src/www/monitor.sh >/dev/null 2>&1"
 
   - name: Create github hook
     github_hooks:

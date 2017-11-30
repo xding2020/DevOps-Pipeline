@@ -2,6 +2,10 @@
 - hosts: localhost
   connection: local
   gather_facts: False
+
+  vars:
+    - host_count: 5
+
   tasks:    
     - name: Provision of instance
       ec2:      
@@ -16,7 +20,7 @@
         assign_public_ip: yes
         vpc_subnet_id: subnet-f5a5bad8
         region: us-east-1
-        exact_count: 5
+        exact_count: "{{ host_count }}"
         count_tag:
           Name: itrust_pro
         instance_tags:
@@ -38,9 +42,16 @@
         state: started
       with_items: "{{ ec2.instances }}"
 
-    - name: print to file
+    - name: Save to inventory
       lineinfile:
         path: ./inventory
         state: present
         line: "{{ item.public_ip }} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=./keys/aws.pem"
+      with_items: "{{ ec2.instances }}"
+
+    - name: Save host to file
+      lineinfile:
+        path: /var/lib/jenkins/workspace/hosts
+        state: present
+        line: "{{ item.public_ip }}"
       with_items: "{{ ec2.instances }}"

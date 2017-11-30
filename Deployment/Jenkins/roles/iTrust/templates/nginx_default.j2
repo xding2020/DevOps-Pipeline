@@ -1,0 +1,19 @@
+upstream app_itrust {
+    ip_hash;
+    server localhost:8080;
+}
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    location / {
+        proxy_pass  http://app_itrust;
+    }
+
+    location /nginx_status {
+        stub_status on;
+        access_log  off;
+        allow all;
+    }
+}

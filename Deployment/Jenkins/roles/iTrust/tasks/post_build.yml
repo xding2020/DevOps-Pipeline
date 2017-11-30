@@ -4,7 +4,7 @@
     jenkins_job:
       name: iTrust-Rolling-Update
       state: present
-      config: "{{ lookup('template', 'templates/iTrust_Post.config.xml.j2') }}"
+      config: "{{ lookup('template', 'templates/iTrust_Deployment.config.xml.j2') }}"
 
   - name: Add ansible repo and update packages
     apt_repository:
@@ -35,6 +35,14 @@
     template: 
       src: inventory.j2
       dest: /var/lib/jenkins/workspace/inventory_itrust
+      group: jenkins
+      owner: jenkins
+      force: yes
+
+  - name: Create hosts
+    template: 
+      src: hosts.j2
+      dest: /var/lib/jenkins/workspace/hosts
       group: jenkins
       owner: jenkins
       force: yes
