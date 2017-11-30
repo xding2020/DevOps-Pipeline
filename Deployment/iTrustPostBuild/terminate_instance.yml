@@ -1,0 +1,22 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:    
+    - name: Get facts of instance
+      ec2_remote_facts:
+        aws_access_key: "{{ lookup('env', 'ACCESS_KEY') }}"
+        aws_secret_key: "{{ lookup('env', 'SECRET_KEY') }}"
+        region: us-east-1
+      register: ec2
+
+    - debug:
+        var: ec2.instances[0].id
+
+    - name: Terminate instance
+      ec2:
+        aws_access_key: "{{ lookup('env', 'ACCESS_KEY') }}"
+        aws_secret_key: "{{ lookup('env', 'SECRET_KEY') }}"
+        state: absent
+        instance_ids: "{{ ec2.instances[0].id }}"
+        region: us-east-1
