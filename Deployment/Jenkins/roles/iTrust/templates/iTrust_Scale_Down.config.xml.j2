@@ -29,19 +29,22 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd $WORKSPACE/../
-head -n -1 hosts > temp
-last=$(tail -n -1 hosts)
-rm -f hosts
-mv temp hosts
-cd $WORKSPACE/Deployment/iTrustPostBuild
-if [ ! -f "keys/aws.pem" ];
+count=$(head hosts | wc -l)
+if [ $count -gt 1 ];
 then
-  mkdir keys
-  cp $WORKSPACE/../aws.pem keys/aws.pem
-  chmod 400 keys/aws.pem
-fi
-ansible-playbook terminate_instance.yml -i "${last}," -u "ubuntu" --private-key "./keys/aws.pem"
-</command>
+  head -n -1 hosts > temp
+  last=$(tail -n -1 hosts)
+  rm -f hosts
+  mv temp hosts
+  cd $WORKSPACE/Deployment/iTrustPostBuild
+  if [ ! -f "keys/aws.pem" ];
+  then
+    mkdir keys
+    cp $WORKSPACE/../aws.pem keys/aws.pem
+    chmod 400 keys/aws.pem
+  fi
+  ansible-playbook terminate_instance.yml -i "${last}," -u "ubuntu" --private-key "./keys/aws.pem"
+fi</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

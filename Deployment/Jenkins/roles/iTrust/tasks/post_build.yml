@@ -1,6 +1,6 @@
 ---
 
-  - name: Setup iTrust-Post-Build build job
+  - name: Setup iTrust-Rolling-Update build job
     jenkins_job:
       name: iTrust-Rolling-Update
       state: present
