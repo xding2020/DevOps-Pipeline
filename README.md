@@ -4,8 +4,8 @@
 | :---                   | :---         |
 | Dian Ding(dding3)      | iTrust auto scaling & Nginx traffic monitoring & linear regression algorithm |
 | Kai Lu(klu2)           | ESLint |
-| Xiangqing Ding(xding3) |  |
-| Fuxing Luan(fluan)     |  |
+| Xiangqing Ding(xding3) | Presentation |
+| Fuxing Luan(fluan)     | Test & Report |
 
 ## Eslint ##
 
@@ -50,5 +50,6 @@ After the script finished executing, Jenkins will be installed and four jobs wil
 	
 ## Presentation Video ##
 
+[https://www.youtube.com/watch?v=pDOzTCIJXRY](https://www.youtube.com/watch?v=pDOzTCIJXRY)
 
 
