@@ -19,6 +19,7 @@
       - boto
       - scipy
       - scikit-learn
+      - pycurl
 
   - name: Create credentials
     raw: "curl -H $(curl -s 'http://{{ inventory_hostname }}:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)') -X POST 'http://{{ inventory_hostname }}:8080/credentials/store/system/domain/_/createCredentials' \
@@ -68,8 +69,20 @@
 
   - name: Setup crontab job
     cron:
-      name: "check dirs"
+      name: "Monitor Nginx Traffic"
       job: "/bin/sh /src/www/monitor.sh >/dev/null 2>&1"
+
+  - name: Copy regression script
+    copy: 
+      src: linear_regerssion.py 
+      dest: /src/www/linear_regerssion.py
+      mode: 0777
+
+  - name: Setup crontab job
+    cron:
+      name: "Linear Regression"
+      hour: "0-23"
+      job: "/usr/bin/python /src/www/linear_regerssion.py >/dev/null 2>&1"
 
   - name: Create github hook
     github_hooks:
