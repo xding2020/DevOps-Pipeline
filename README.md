@@ -7,6 +7,9 @@
 | Xiangqing Ding(xding3) | 
 | Fuxing Luan(fluan)     | 
 
+## Notice  ##
+Star this project if you find it useful :)
+
 ## Milestone 1: Configuration Management + Build ##
 [https://github.com/DinMouMou/DevOps-Pipeline/tree/M1](https://github.com/DinMouMou/DevOps-Pipeline/tree/M1)
 
